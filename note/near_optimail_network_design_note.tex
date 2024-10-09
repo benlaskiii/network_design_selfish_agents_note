@@ -1,0 +1,128 @@
+\documentclass[11pt,psfig,times]{article}
+\voffset=-2.2cm
+\hoffset=-2.1cm
+
+\setlength{\textwidth}{16.8cm}
+\setlength{\textheight}{22.8cm}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{amsfonts}
+\usepackage{amsthm, amsmath,amsfonts, amssymb}
+
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\baselinestretch}{1.1}
+
+\newcommand{\ignore}[1]{{}}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{observation}{Observation}
+\newtheorem{claim}{Claim}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{fact}{Fact}
+
+\begin{document}
+\title{Near-Optimal Network Design with Selflish Agents}
+\author{Nuo Xu\thanks{Department of Computer Science, Technical University of Munich. {\tt ge74mis@tum.de}}}
+\date{25.11.2024}
+\maketitle
+
+\section{Introduction}
+
+\subsection{Classic Generalized Steiner Tree problem}
+In the classic generalized Steiner tree, we are given an undirected graph \(G\) with non-negative edge costs and a set of terminals. The goal is find the a subgraph of \(G\) that connects all terminals and minimizes the cost. 
+
+\subsection{Introduction of Selfish Agents}
+However, when players start to have self-interests, some players might need to pay more if they choose to discard self-interests to archive best centralized optimum. 
+
+Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals ( nodes in \(G\) ) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money and they would like to pay a little as possible. 
+
+Draw example to state Nash equilibrium can be much more expensive than best centralized design. 
+
+\subsection{Formal Definition of Connection Game}
+Here we formally define the connection game as following:
+\begin{definition}[Payment Function \(p\)]
+A payment function indicates a player's strategy.
+\end{definition}
+
+\begin{itemize}
+\item If the sum of payment on certain edge \(e\) is lager than the cost on that edge \(c_e\), this edge is considered as bought.
+\item If an edge \(e\) is bought, it will be added to the final network and can be used by all players no matter they contribute to it or not.
+\item If in the end, a player's terminates are not fully connected, they will face an infinite penalty.  
+\end{itemize}
+
+
+\section{Nash Equilibrium in Connection Game}
+\subsection{Existence of Pure Nash Equilibrium}
+A crucial idea of modern game theory introduced by von Neumann is mixed strategies i.e. randomization of pure strategies. Von Neumann's work mostly stayed in zero-sum games. John Nash further extended game theory into \(N\) players general games.  
+\begin{theorem}[Nash's theorem]
+	With randomization, any game with finite number of players and actions has a mixed-strategy of Nash equilibrium.
+\end{theorem}
+Nash's theorem states that any finite game has a least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium. Here it is not hard to see that pure Nash equilibrium may not exist in the connection game. 
+
+\subsection{Fractional Nash Equilibrium}
+\begin{definition}[Fractional Nash Equilibrium]If Nash equilibrium requires players to split cost of some edge, such Nash Equilibrium is fractional.	
+\end{definition}
+
+\subsection{Some Properties of Nash Equilibrium in Connection Game}
+\begin{definition}[Nash Equilibrium in Connection Game]
+	A Nash equilibrium of the connection game is a payment function p such that, if players offer payments \(p\), no payer has an incentive to deviate from their payment. 
+\end{definition}
+\begin{itemize}
+	\item \(G_p\) is a forest.
+	\item Let \(T^i\) be the smallest tree in \(G_p\) connecting all terminals of player \(i\), then player \(i\) only contributes to edges in \(T^i\).
+	\item Each edge is either bought or not at all. 
+\end{itemize}
+
+
+\subsection{Price of Anarchy and Stability}
+As mentioned in Section 1, the introduction of selfish agents can lead to worse equilibrium than the best centralized optimum. The question is how bad an equilibrium can be.
+\begin{definition}[Price of Anarchy] The price of anarchy of connection game is defined as the ratio of the cost of worst Nash equilibrium over the best centralized design.
+	\[P_A = \dfrac{\sum_{1}^{N}p_i(e) }{OPT}\]
+\end{definition}
+
+The price of anarchy can be as worst as \(N\).
+
+\begin{definition}[Price of Stability] Price of stability is a complementary concept of price of anarchy which evaluate how good the best equilibrium can be. 
+
+\[P_A = \dfrac{\sum_{1}^{N}p_i(e) }{OPT}\]
+\end{definition}
+
+
+\section{Hardness Proof}	
+Under suitable complexity assumption(unless \(NP = coNP\)), it is proven by xxxxx that computing Nash Equilibrium in non-zero-sum games is PPAD-hard (i.e. there is no polynomial-time algorithm).
+
+
+\section{Single Source Games}
+\subsection{Definition of Single Source Games}
+In this section first introduces a special version of connection game which guarantees the existence of pure Nash equilibrium and the price of stability of 1. 
+\begin{definition}[Single source Game]
+	A single source game is a game in which all players share a common terminal \(s\) and in addition, each player \(i\) has exactly one other terminal \(t_i\).
+\end{definition}
+
+\subsection{Proof of Existence of Nash Equilibrium}
+Finding the minimum cost Steiner tree is NP hard. However, to prove the existence of Nash Equilibrium in single source game, we are going to assume that the minimum cost Steiner tree \(T^*\) over all players' terminals has already been given. Then by assigning payment strategy while reverse BFS(Breadth First Search) visiting \(T^*\), it can be proven that certain payment strategy will guarantee Nash Equilibrium in the end. 
+
+\subsection{Proof of Price of Stability Always Being 1}
+
+\subsection{Approximate Nash Equilibrium}
+\begin{definition}[Approximate Equilibrium]
+	A \((1+\epsilon)\)-approximate Nash Equilibrium is that 
+\end{definition}
+
+\end{document}
+
+
