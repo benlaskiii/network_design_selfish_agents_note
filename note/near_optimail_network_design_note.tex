@@ -5,87 +5,105 @@
 \setlength{\textwidth}{16.8cm}
 \setlength{\textheight}{22.8cm}
 
-\usepackage[dvips]{graphics,color}
 \usepackage{latexsym}
 \usepackage{epsfig}
 \usepackage{times}
-\usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{bm}
 \usepackage{enumitem}
 \usepackage{tikz}
-\usepackage{amsfonts}
 \usepackage{amsthm, amsmath,amsfonts, amssymb}
-
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz-network}
+\usepackage{color}
+\usetikzlibrary{hobby}
+\definecolor{lightblue}{RGB}{158,202,225}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\baselinestretch}{1.1}
 
 \newcommand{\ignore}[1]{{}}
-
-\theoremstyle{theorem}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}
-\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
 \newtheorem{observation}{Observation}
 \newtheorem{claim}{Claim}
 \newtheorem{proposition}{Proposition}
-\theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{fact}{Fact}
 
+
 \begin{document}
-\title{Near-Optimal Network Design with Selflish Agents}
-\author{Nuo Xu\thanks{Department of Computer Science, Technical University of Munich. {\tt ge74mis@tum.de}}}
+\title{Near-Optimal Network Design with Selfish Agents}
+\author{Nuo Xu\thanks {Department of Computer Science, Technical University of Munich. {\tt ge74mis@tum.de}}}
 \date{25.11.2024}
 \maketitle
 
 \section{Introduction}
 
-\subsection{Classic Generalized Steiner Tree problem}
-In the classic generalized Steiner tree, we are given an undirected graph \(G\) with non-negative edge costs and a set of terminals. The goal is find the a subgraph of \(G\) that connects all terminals and minimizes the cost. 
+\subsection{Classic Generalized Steiner Tree and Steiner Forest problem}
+In the classic generalized Steiner tree, we are given an undirected graph \(G = (V,E)\) with non-negative edge cost \(c_e \geq 0\) for every edge $c_e \in E$ and a set of terminals $R \subseteq V $. The goal is to compute the minimum-cost subgraph that spans all terminals. Whereas in the Steiner forest problem, we are given a collection of disjoint subsets of \(V: V_1,V_2,V_3,...V_n\). The goal is to compute a subgraph that any two vertices that belong to the same subset \(V_i\) are connected. 
+
+The Steiner Tree problem is a Steiner Forest problem with a single subset of \(V\). We will denote the optimal solution of both problems as OPT. Finding OPT is NP-hard. 
 
 \subsection{Introduction of Selfish Agents}
-However, when players start to have self-interests, some players might need to pay more if they choose to discard self-interests to archive best centralized optimum. 
+In real life, the design of network often involves selfish agents. Imaging the train routes among major cities in Europe, Paris, Munich, Berlin, and Milan. Every city would like to connect to all other cities. However, there won't be a single company that can design the minimum cost network and implement such network. Instead, every city would like to seek the route that they can pay less rather than the route that requires more. 
+\begin{figure}
+	\begin{center}
+	\begin{tikzpicture}
+	\Vertex[label=$t_1$]{t1}
+	\Vertex[label=$t_2$,x=3]{t2}
+	\Vertex[x=1.5,y=1]{middle}
+	\Vertex[x=1.5,y=3,label=$s$]{s}
+	\Edge[label=$1$,position={above=1mm}](t1)(middle)
+	\Edge[label=$1$,position={above=1mm}](t2)(middle)
+	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
+	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
+	\end{tikzpicture}
 
-Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals ( nodes in \(G\) ) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money and they would like to pay a little as possible. 
+\end{center}
+\end{figure}
 
-Draw example to state Nash equilibrium can be much more expensive than best centralized design. 
+Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money, and they would like to pay a little as possible. 
 
 \subsection{Formal Definition of Connection Game}
-Here we formally define the connection game as following:
-\begin{definition}[Payment Function \(p\)]
-A payment function indicates a player's strategy.
-\end{definition}
-
+Here we formally define the connection game for \(N\) players as following:
 \begin{itemize}
-\item If the sum of payment on certain edge \(e\) is lager than the cost on that edge \(c_e\), this edge is considered as bought.
-\item If an edge \(e\) is bought, it will be added to the final network and can be used by all players no matter they contribute to it or not.
-\item If in the end, a player's terminates are not fully connected, they will face an infinite penalty.  
+	\item An undirected graph \(G = (V,E)\).
+	\item Non-negative edge cost \(c_e \geq 0\) for every edge $c_e \in E$.
+	\item A subset of \(V\) for each player that they must connect to. 
+	\item A payment function \(p_i\) indicates that player's payment strategy. \(p_i(e)\) is the contribution that player \(i\) would like to offer for edge \(e\).
 \end{itemize}
 
+If the sum of payment on certain edge \(e\) is larger than the cost on that edge \(c_e\), this edge is considered as bought and can be used by all players no matter they contribute to it or not. The goal of all players is to connect all of their terminals. If in the end, a player's terminates are not fully connected, they will face an infinite penalty.  
 
 \section{Nash Equilibrium in Connection Game}
 \subsection{Existence of Pure Nash Equilibrium}
+
 A crucial idea of modern game theory introduced by von Neumann is mixed strategies i.e. randomization of pure strategies. Von Neumann's work mostly stayed in zero-sum games. John Nash further extended game theory into \(N\) players general games.  
 \begin{theorem}[Nash's theorem]
 	With randomization, any game with finite number of players and actions has a mixed-strategy of Nash equilibrium.
 \end{theorem}
-Nash's theorem states that any finite game has a least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium. Here it is not hard to see that pure Nash equilibrium may not exist in the connection game. 
 
-\subsection{Fractional Nash Equilibrium}
-\begin{definition}[Fractional Nash Equilibrium]If Nash equilibrium requires players to split cost of some edge, such Nash Equilibrium is fractional.	
-\end{definition}
-
-\subsection{Some Properties of Nash Equilibrium in Connection Game}
 \begin{definition}[Nash Equilibrium in Connection Game]
 	A Nash equilibrium of the connection game is a payment function p such that, if players offer payments \(p\), no payer has an incentive to deviate from their payment. 
 \end{definition}
+
+Nash's theorem states that any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium. Here it is not hard to see that pure Nash equilibrium may not exist in the connection game. 
+ 
+
+\subsection{Some Properties of Nash Equilibrium in Connection Game}
+
 \begin{itemize}
 	\item \(G_p\) is a forest.
 	\item Let \(T^i\) be the smallest tree in \(G_p\) connecting all terminals of player \(i\), then player \(i\) only contributes to edges in \(T^i\).
 	\item Each edge is either bought or not at all. 
 \end{itemize}
+
+\subsection{Fractional Nash Equilibrium}
+\begin{definition}[Fractional Nash Equilibrium]If Nash equilibrium requires players to split cost of some edge, such Nash Equilibrium is fractional.	
+\end{definition}
 
 
 \subsection{Price of Anarchy and Stability}
@@ -101,28 +119,155 @@ The price of anarchy can be as worst as \(N\).
 \[P_A = \dfrac{\sum_{1}^{N}p_i(e) }{OPT}\]
 \end{definition}
 
-
-\section{Hardness Proof}	
-Under suitable complexity assumption(unless \(NP = coNP\)), it is proven by xxxxx that computing Nash Equilibrium in non-zero-sum games is PPAD-hard (i.e. there is no polynomial-time algorithm).
-
-
 \section{Single Source Games}
 \subsection{Definition of Single Source Games}
-In this section first introduces a special version of connection game which guarantees the existence of pure Nash equilibrium and the price of stability of 1. 
+We have already known that pure Nash Equilibrium might not exist in the general version of connection game i.e. N players with multiple terminals that they would like to connect. We have also already learned that determining the existence of Nash equilibrium in connection game is NP-hard. However, in the single source connection game, Nash equilibrium is determined to exist.
+
+In the single source game, we only allow every player \(i\) has one unique terminal \(t_i\)that they all would like to connect a common terminal \(s\). This can be considered as a special version of Steiner tree problem where \(R = \{s,t_0,t_1,...t_N\}\). 
+
 \begin{definition}[Single source Game]
 	A single source game is a game in which all players share a common terminal \(s\) and in addition, each player \(i\) has exactly one other terminal \(t_i\).
 \end{definition}
 
-\subsection{Proof of Existence of Nash Equilibrium}
-Finding the minimum cost Steiner tree is NP hard. However, to prove the existence of Nash Equilibrium in single source game, we are going to assume that the minimum cost Steiner tree \(T^*\) over all players' terminals has already been given. Then by assigning payment strategy while reverse BFS(Breadth First Search) visiting \(T^*\), it can be proven that certain payment strategy will guarantee Nash Equilibrium in the end. 
+As we have talked before, it is not much of our interests to study the worst equilibrium as it can be really bad. Instead, we would like to see how good the best equilibrium can be. One natural thought is can we achieve an equilibrium that equals to the \(OPT\)? Now suppose the minimum cost Steiner tree \(T^*\) over all players' terminals is given on a sliver plate, we are going to drive an algorithm that gradually assigns each player \(i\) a payment strategy on edge \(e\). Then we are going to prove that the final payment function \(p\) will end up as an equilibrium and yield price of stability as 1.  
+
+It is trivial to see that every leaf node in \(T^*\) is a terminal as if not it is possible to simply discard this node and corresponding edge without affecting the connection of any terminals.
+\begin{fact}
+	Every leaf node in \(T^*\) is a terminal. 
+\end{fact}
+
+\subsection{Payment Strategy Design}
+We know that we are going to assign every edge in \(T^*\) but the problem is which edge we are going to assign first. The intuition is to assign edges that are known for sure which players are interested in. First, let \(T^*\) be rooted from \(s\). We will visit \(T^*\) in reverse breadth-first-search order. For every edge \(e\), suppose \(e\) is removed from \(T^*\), \(T^*\) will be divided into two subtrees. Let the subtree that does not contain \(s\) be \(T_e\) and the one contains \(s\) be \(T_s\). It is clear to see that players in \(T_s\) would not be interested in paying anything for \(e\) as discarding \(e\) will not affect their connection to \(s\) at all. Suppose a player can only connect to \(s\) through one path that no edges are shared by any other players, they would have to pay the full cost of every edge on that path. The main loop in our algorithms goes as following: we loop every edge \(e \in T^*\) in reserve BFS order, then for every player \(i \in T_e\) we determine \(p_i(e)\).
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			\Vertex[label=$t_1$]{t1}
+			\Vertex[label=$t_2$,x=3]{t2}
+			\Vertex[x=1.5,y=1]{middle}
+			\Vertex[x=1.5,y=3,label=$s$]{s}
+			\Edge[style={dashed},label=$e$,color=red!50,fontcolor=black](t1)(middle)
+			\Edge[color=red!50](t2)(middle)
+			\Edge[color=red!50](s)(middle)
+			\Edge(t1)(s)
+			\draw[dashed,thick](0,0) circle (15pt);
+			\node at (0, -1) {$T_e$};
+			\draw[dashed,thick,rotate=30,label=$T_s$](2.5,0) ellipse(1.1cm and 2.5cm);
+ 			\node at (3.5, 2.1) {$T_s$};
+		\end{tikzpicture}
+	\end{center}
+\end{figure}
+
+Next we going to assign \(p_i(e))\) so that players would stay in \(T^*\). In every iteration, we modify the cost of every edge according to the following rules:
+\begin{itemize}
+	\item edges \(f \in T_e\) cost \(p_i(f)\)
+	\item edges \(f \in T^*\setminus T_e\) costs 0
+	\item edges \(f\notin T^*\) cost \(c(f)\)
+\end{itemize}
+Then we find the cheapest alternative path \(A_i\) from \(t_i\) to \(s\) from \(F\setminus \{e\}\) under modified cost. 
+Now we consider the cost player \(i\) needs to pay if they choose to deviate, \(c(A_i) - \sum_{f\in T^*}p_i(T^*)\), and \(c(e) - \sum_{j\in T_i,j\neq i}p_j(e)\). By choosing the minimum between these two values, we ensure that player \(i\) will never contribute to \(e\) more than the cost of deviation. In another word, it is always  cheaper for players to stay in \(T^*\). Therefore, \(p\) is indeed a Nash equilibrium. 
+\begin{corollary}
+	The final payment function produced by the above algorithm is indeed a Nash equilibrium.
+\end{corollary}
 
 \subsection{Proof of Price of Stability Always Being 1}
+We have learned that every player is not going to buy any other edges that are not in \(T^*\). 
+To prove that the price of stability is always 1, we need to demonstrate that in the end of the game, every edge in \(T^*\) is fully paid. 
+  
+
+To prove that every edge in \(T^*\) is fully paid in the end, we are going to assume that the following lemma is true. 
+
+Suppose \(A_i\) is \(i\)'s alternative path at some stage of the algorithm. Then suppose there are two nodes \(v\) and \(w\) on \(A_i\) that divides this path into three parts. Let edges on \(A_i\) from \(t_i\) to \(v\) be \(f_1\), from \(v\) to \(w\) be \(f_2\), from \(w\) to \(s\) be \(f_3\).
+\begin{lemma}
+	There must exist a pair of \(\{v,w\}\) such that \(f_1 \in T_e\), \(f_2 \notin T^*\), \(f_3 \in T^*\setminus T_e\).
+\end{lemma}
+Once \(A_i\) leaves \(T_e\), it will never go back to \(T_e\) again.
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			\coordinate (s) at (2,2);
+			\coordinate (t_1) at (-5,-5);
+			\coordinate (t_2) at (-4,-5);
+			\coordinate (t_3) at (-3,-5);
+			\coordinate (t_4) at (-2,-5);
+			\node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (s)  {s};
+			\node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (t_1)  {s};
+			\node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (t_2)  {s};
+			\node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (t_3)  {s};
+		\end{tikzpicture}
+	\end{center}
+\end{figure}
+Suppose \(A_i\) goes from \(T_e\) to \(E\setminus T^*\) then back to \(T_e\), we can find a cheaper alternative path. 
+Define \(x\) as the node before \(A_i\) going back to \(T_e\) again. 
+Define \(y\) to be the lowest common ancestor of \(x\) and \(t_i\).
+
+\begin{figure}
+	\begin{center}
+		\begin{tikzpicture}
+			\coordinate (s) at (2,2);
+			\coordinate (e_upper) at (0.5,0.5);
+			\coordinate (e_lower) at (-1.5,-1);
+			\coordinate (t_i) at (0,-5);
+			\coordinate (t_1) at (-2,-5);
+			\coordinate (t_iup) at (-0.5,-3);
+			\coordinate (u) at (3,-1);
+			\coordinate (v) at (1,-2);
+			\node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (s)  {s};
+			\draw[thick,black,fill=gray] (t_1) circle (8pt);
+			\draw[thick,black,fill=gray]  (e_upper) circle (8pt);
+			\draw[thick,black,fill=gray]  (e_lower) circle (8pt);
+			\draw[thick,black,fill=gray]  (t_i) circle (8pt);
+			\draw[thick,black,fill=gray]  (t_iup) circle (8pt);
+			\draw[thick,black,fill=gray]  (u) circle (8pt);
+			\draw[thick,black,fill=gray]  (v) circle (8pt);
+			\Edge[style={dashed},label=$e$,fontcolor=black,fontscale =1.5,color=gray!50](e_upper)(e_lower)
+			\Edge[style={dashed}](e_lower)(t_iup)
+			\Edge[style={dashed}](e_lower)(v)
+			\Edge[style={dashed}](e_upper)(s)
+			\Edge[color=red!50](t_i)(t_iup)
+			\Edge[style={dashed},color=red!50,label=$f_1$,position={below=2mm},fontscale=1.5](t_iup)(v)
+			\Edge[style={dashed},RGB,color={0,201,0},label=$f_2$,position={below=2mm},fontscale=1.5](v)(u)
+			\Edge[style={dashed},RGB,color={253,192,134},label=$f_3$,position={above=2mm,right=1mm},fontscale=1.5](s)(u)
+			\draw[line width=0.5mm,dashed,-stealth] plot[smooth] coordinates {([xshift=5pt]t_i)([xshift=5pt]t_iup)([xshift=5pt]v) ([xshift=5pt]u) ([xshift=5pt]s)};
+			\node at (1.5,-1.5){$A_i$};
+			\draw[color=blue!50,thick] (e_lower) to[closed, curve through = {(v)(t_i)(t_1)}] (e_lower); 
+			
+		\end{tikzpicture}
+	\end{center}
+\end{figure}
+
+\begin{lemma}
+	All edges in \(T^*\) are bought, i.e. $\sum p_i(e) = c(e)$ for any $e \in T^*$.
+\end{lemma}
+
+Suppose there exists some edge \(e\) such that after all players in \(T_e\) have contributed to that edge, \(p_i(e) < c(e)\), we can prove that \(T_e\) costs more than \(\bigcup_{i\in T_e} A_i\) which is a contradiction of \(T^*\) is \(OPT\).
+
+
 
 \subsection{Approximate Nash Equilibrium}
+Although we proved that the determined existence of Nash equilibrium in single source game, the algorithm presented is not feasible as the finding the minimum cost Steiner tree is NP-hard by itself. 
 \begin{definition}[Approximate Equilibrium]
-	A \((1+\epsilon)\)-approximate Nash Equilibrium is that 
+	A \((1+\epsilon)\)-approximate Nash Equilibrium is a payment function \(p\) such that player \(i\) would not deviate their payment by a factor of \(1+\epsilon\).
 \end{definition}
 
+\begin{theorem}
+	Given a single source game and \(\alpha\) approximation of minimum-cost Steiner tree \(T\), 
+\end{theorem}
+
+\section{Lower Bound of Approximate Nash Equilibrium}
+It has been proven that it is NP-hard to approximate Steiner tree problem within ratio \(96/95\). However, it is possible to obtain an approximate minimum-cost Steiner tree by modeling this problem into linear programming and randomized rounding. The closest approximation ratio has been obtained so far is 1.55.
+\subsection{Hardness Proof}	
+Under suitable complexity assumption (unless \(NP = coNP\)), it is proven by xxxxx that computing Nash Equilibrium in non-zero-sum games is PPAD-hard (i.e. there is no polynomial-time algorithm).
+
+\begin{thebibliography}{10}
+	\setlength{\itemsep}{0pt plus .3pt}
+	\setlength{\parsep}{0pt plus .3pt}
+	\setlength{\parskip}{0pt plus .3pt}
+\bibitem{texbook}
+Vazirani Vijay V. {\em Approximation Algorithms.\/} Chapters 3.1 and 22, Springer, 2003.
+\end{thebibliography}
+
 \end{document}
+
 
 
