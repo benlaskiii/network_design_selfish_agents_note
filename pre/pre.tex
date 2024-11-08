@@ -33,6 +33,7 @@
     \vspace{10pt}
     In the Steiner Tree problem, we are given a set of terminals $R \subseteq V $. The goal is to compute the minimum-cost subgraph that spans all terminals. 
 \end{frame}
+
 \begin{frame}{Steiner Tree with Two Terminals}
     If $|R| = 2$, then it is equal to find the shortest path between two terminals.\\
     \vspace{20pt}
@@ -52,10 +53,10 @@
         \coordinate (r4) at (1.5,-1);
         \coordinate (r5) at (1.5,-2);
 
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (t1){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (t1){};
         \node at (-3.5,0) {$t_1$};
         \node at (3.5,0) {$t_2$};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (t2){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (t2){};
         \node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (l1){};
         \node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (l2){};
         \node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (l3){};
@@ -88,7 +89,7 @@
 \end{frame}
 
 \begin{frame}{Steiner Tree with N Terminals}
-If $|R| = |V|$, then is is equal to find the MST.\\
+If $|R| = |V|$, then it is equal to find the MST.\\
 \vspace{20pt}
     \centering
     \begin{tikzpicture}[scale =0.8]
@@ -106,18 +107,18 @@ If $|R| = |V|$, then is is equal to find the MST.\\
         \coordinate (r4) at (1.5,-1);
         \coordinate (r5) at (1.5,-2);
 
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (t1){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (t2){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (l1){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (l2){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (l3){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (l4){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (l5){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (r1){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (r2){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (r3){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (r4){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (r5){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (t1){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (t2){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (l1){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (l2){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (l3){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (l4){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (l5){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (r1){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (r2){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (r3){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (r4){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (r5){};
         \Edge(t1)(l1)
         \Edge(t1)(l2)
         \Edge(t1)(l3)
@@ -140,6 +141,7 @@ If $|R| = |V|$, then is is equal to find the MST.\\
 \end{frame}
 
 \begin{frame}{Steiner Tree Example}
+    \centering
     \begin{tikzpicture}
         \coordinate (v1) at (0,0);
         \coordinate (v2) at (3,0);
@@ -150,24 +152,24 @@ If $|R| = |V|$, then is is equal to find the MST.\\
 		\coordinate (v7) at (3,-3);
 
         \node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (v1){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v2){};
-		\node[draw,circle,fill=green!30,thick,minimum size=8pt] (CircleNode) at (v3){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v4){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v5){};
-		\node[draw,circle,fill=green!30,thick,minimum size=8pt] (CircleNode) at (v6){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v7){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v2){};
+		\node[draw,circle,fill=green!20,thick,minimum size=8pt] (CircleNode) at (v3){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v4){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v5){};
+		\node[draw,circle,fill=green!20,thick,minimum size=8pt] (CircleNode) at (v6){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v7){};
 
         \Edge[label=$5$](v1)(v2)
         \Edge[label=$5$](v1)(v3)
         \Edge[label=$6$](v1)(v4)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v2)(v3)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v2)(v3)
         \Edge[label=$2$,position={left=1mm}](v4)(v5)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v4)(v3)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v3)(v6)
-        \Edge[label=$4$,color=red!50,fontcolor=black](v5)(v6)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v4)(v3)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v3)(v6)
+        \Edge[label=$4$,color=red!30,fontcolor=black](v5)(v6)
         \Edge[label=$10$](v5)(v7)
         \Edge[label=$8$,position={right=1mm}](v2)(v7)
-        \Edge[label=$2$,color=red!50,fontcolor=black,](v6)(v7)     
+        \Edge[label=$2$,color=red!30,fontcolor=black,](v6)(v7)     
     \end{tikzpicture}\hspace{10pt}
     \begin{tikzpicture}
         \coordinate (v1) at (0,0);
@@ -179,24 +181,24 @@ If $|R| = |V|$, then is is equal to find the MST.\\
 		\coordinate (v7) at (3,-3);
 
         \node[draw,circle,fill=lightblue,thick,minimum size=8pt] (CircleNode) at (v1){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v2){};
-		\node[draw,circle,fill=green!30,thick,minimum size=8pt] (CircleNode) at (v3){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v4){};
-		\node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v5){};
-		\node[draw,circle,fill=green!30,thick,minimum size=8pt] (CircleNode) at (v6){};
-        \node[draw,circle,fill=red!50,thick,minimum size=8pt] (CircleNode) at (v7){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v2){};
+		\node[draw,circle,fill=green!20,thick,minimum size=8pt] (CircleNode) at (v3){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v4){};
+		\node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v5){};
+		\node[draw,circle,fill=green!20,thick,minimum size=8pt] (CircleNode) at (v6){};
+        \node[draw,circle,fill=red!30,thick,minimum size=8pt] (CircleNode) at (v7){};
 
         \Edge[label=$5$](v1)(v2)
         \Edge[label=$5$](v1)(v3)
         \Edge[label=$6$](v1)(v4)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v2)(v3)
-        \Edge[label=$2$,color=red!50,fontcolor=black,position={left=1mm}](v4)(v5)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v4)(v3)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v3)(v6)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v2)(v3)
+        \Edge[label=$2$,color=red!30,fontcolor=black,position={left=1mm}](v4)(v5)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v4)(v3)
+        \Edge[label=$2$,color=red!30,fontcolor=black](v3)(v6)
         \Edge[label=$4$,fontcolor=black](v5)(v6)
         \Edge[label=$10$](v5)(v7)
         \Edge[label=$8$,position={right=1mm}](v2)(v7)
-        \Edge[label=$2$,color=red!50,fontcolor=black](v6)(v7)     
+        \Edge[label=$2$,color=red!30,fontcolor=black](v6)(v7)     
     \end{tikzpicture}
 \end{frame}
 
@@ -205,13 +207,21 @@ If $|R| = |V|$, then is is equal to find the MST.\\
 \end{frame}
 
 \begin{frame}{Introduction of Selfish Agents}
-However, when players start to have self-interests, some players might need to pay more if they choose to discard self-interests to archive best centralized optimum. \\
+\textbf{What if we don't have a director in change of the whole network, instead there exist many agents acting selfishly?}\\
 \vspace{10pt}
-Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). \\
-\vspace{10pt}
-Players offer each edge in \(G\) certain amount of money, and they would like to pay a little as possible. 
+For example:
+\begin{itemize}
+    \item The railway network across European
+    \item Internet
+    \item ...
+\end{itemize}
 \end{frame}
 
+\begin{frame}{Introduction of Selfish Agents}
+Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain payment $p_i(e)$\\
+\vspace{10pt}
+When players start to behave selfish, i.e. they would like to seek the minimum total payment, some players might deviate best centralized optimum. 
+\end{frame}
 \begin{frame}{How Selfish Agents Cause Deviation from Central OPT}
     \begin{figure}
         \begin{center}
@@ -272,23 +282,25 @@ Players offer each edge in \(G\) certain amount of money, and they would like to
     \end{definition}
 \end{frame}
 
-\begin{frame}{Nash's Theorem}
-   
-    \begin{theorem}[Nash's theorem]
-        With randomization, any game with finite number of players and actions has a mixed-strategy of Nash equilibrium.
-    \end{theorem}
-    Nash's theorem states that any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium.  
-\end{frame}
-
-\begin{frame}{Nash Equilibrium in Coonection Game}
+\begin{frame}{Nash Equilibrium in Connection Game}
      \begin{definition}[Nash Equilibrium in Connection Game]
         A Nash equilibrium of the connection game is a payment function p such that, if players offer payments \(p\), no payer has an incentive to deviate from their payment. 
     \end{definition}
-    \textbf{Pure Nash equilibrium may not exist in the connection game.}
+\end{frame}
+
+\begin{frame}{Nash's Theorem}
+    \begin{theorem}[Nash's theorem]
+        With randomization, any game with finite number of players and actions has a mixed-strategy of Nash equilibrium.
+    \end{theorem}
+    Nash's theorem states that any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium.\\ 
+    \vspace{10pt}
+    In the context of large-scale network creation, allowing players choosing their strategies randomly does not make much sense. \textbf{We are only interested in the pure Nash equilibrium in connection game.}
 \end{frame}
 
 \begin{frame}{No Existence of Nash Equilibrium}
-\centering
+    \textbf{Pure Nash equilibrium may not exist in the connection game if we only allow players to pay for the whole edge not pay at all.}\\
+    \vspace{20pt}
+    \centering
     \begin{tikzpicture}
         \coordinate (s1) at (0,0);
         \coordinate (s2) at (2,0);
@@ -317,8 +329,8 @@ Players offer each edge in \(G\) certain amount of money, and they would like to
         \node[draw,circle,fill=white,thick,minimum size=2pt] (CircleNode) at (t1){\footnotesize $t_1$};
         \node[draw,circle,fill=white,thick,minimum size=2pt] (CircleNode) at (t2){\footnotesize $t_2$};
 
-        \Edge[label=$1$,fontcolor=black,color=red!50,position={above=1mm}](s1)(s2)
-        \Edge[label=$1$,fontcolor=black,color=red!50,position={right=1mm}](s2)(t1)
+        \Edge[label=$1$,fontcolor=black,color=red!30,position={above=1mm}](s1)(s2)
+        \Edge[label=$1$,fontcolor=black,color=red!30,position={right=1mm}](s2)(t1)
         \Edge[label=$1$,fontcolor=black,color=blue!50,style={dashed},position={below=1mm}](t1)(t2)
         \Edge[label=$1$,position={left=1mm}](t2)(s1)
     \end{tikzpicture}
@@ -337,13 +349,13 @@ Players offer each edge in \(G\) certain amount of money, and they would like to
         \Edge[label=$1$,fontcolor=black,position={above=1mm}](s1)(s2)
         \Edge[label=$1$,fontcolor=black,position={right=1mm}](s2)(t1)
         \Edge[label=$1$,fontcolor=black,color=blue!50,position={below=1mm}](t1)(t2)
-        \Edge[label=$1$,fontcolor=black,color=red!50,style={dashed},position={left=1mm}](t2)(s1)
+        \Edge[label=$1$,fontcolor=black,color=red!30,style={dashed},position={left=1mm}](t2)(s1)
     \end{tikzpicture}    
 \end{frame}
 
 \begin{frame}{Fractional Nash Equilibrium}
 \begin{definition}[Fractional Nash Equilibrium]
-    Game instances where the only Nash equilibria in existence require players to split the cost of an edge. 
+    Game instances where the only Nash equilibrium in existence require players to split the cost of an edge. 
 \end{definition}
 \vspace{10pt}
 \centering
@@ -406,6 +418,34 @@ Players offer each edge in \(G\) certain amount of money, and they would like to
 \end{definition}
 \end{frame}
 
+\begin{frame}{How Can We Assign $P$}
+    \begin{enumerate}
+        \item Best Dynamics 
+        \item Shapely Value 
+        \item Utilizing minimum Steiner Tree
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Best Dynamics}
+    \centering
+    \begin{tikzpicture}[scale=0.9]
+        \Vertex[x=0,y=0]{t11}
+        \Vertex[x=3,y=0]{t22}
+        \Vertex[label=$t_1$,x=-1.5,y=-1]{t1}
+        \Vertex[label=$t_2$,x=4.5,y=-1]{t2}
+        \Vertex[x=1.5,y=1]{middle}
+        \Vertex[x=1.5,y=2.5]{s}
+        \Vertex[label=$t_3$,x=1.5,y=4]{t3}
+        \Edge(t1)(t11)
+        \Edge(t2)(t22)
+        \Edge(s)(t3)
+        \Edge[label=$1$,position={above=1mm}](t11)(middle)
+        \Edge[label=$1$,position={above=1mm}](t22)(middle)
+        \Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
+    \end{tikzpicture}
+    
+\end{frame}
+
 \begin{frame}{Suppose We have $T^*$ in our hands \dots}
 Now suppose the minimum cost Steiner tree \(T^*\) over all players' terminals is given on a sliver plate, one natural thought is can we achieve an equilibrium that equals to the \(OPT\)?  \\
 \vspace{10pt}
@@ -436,9 +476,9 @@ The answer is YES!
 			\Vertex[label=$t_2$,x=3]{t2}
 			\Vertex[x=1.5,y=1]{middle}
 			\Vertex[x=1.5,y=3,label=$s$]{s}
-			\Edge[style={dashed},label=$e$,color=red!50,fontcolor=black](t1)(middle)
-			\Edge[color=red!50](t2)(middle)
-			\Edge[color=red!50](s)(middle)
+			\Edge[style={dashed},label=$e$,color=red!30,fontcolor=black](t1)(middle)
+			\Edge[color=red!30](t2)(middle)
+			\Edge[color=red!30](s)(middle)
 			\Edge(t1)(s)
 			\draw[dashed,thick](0,0) circle (15pt);
 			\node at (0, -1) {$T_e$};
@@ -453,7 +493,7 @@ In every iteration, we modify the cost of every edge according to the following 
 \begin{itemize}
 	\item let costs of edges \(e \in T_e\) be \(p_i(e)\)
 	\item let costs of edges \(e \in T_s\) be  0
-	\item costs of edges \(e\notin T^*\) stay the the same
+	\item costs of edges \(e\notin T^*\) stay the same
 \end{itemize}
 \vspace{10pt}
 \end{frame}
@@ -478,7 +518,7 @@ In every iteration, we modify the cost of every edge according to the following 
     \ELSE
     \STATE \(c(e) \gets p_i(f)  \qquad \forall e \in T_e\) 
 	\STATE \(c(e) \gets 0 \qquad \forall e \in T_S\) 
-    \STATE $A_i \gets$ cheapest alternative path from \(s\) to \(t_i\) in $G\setminus\{e\}$ 
+    \STATE $A_i \gets$ the cheapest alternative path from \(s\) to \(t_i\) in $G\setminus\{e\}$ 
     \STATE \(p_i(e) \gets min\{c(A_i) - \sum_{e\in T^*}p_i(e),c(e)-\sum_{j}p_j(e) \}\)
     \ENDIF
     \ENDWHILE
@@ -497,7 +537,7 @@ In every iteration, we modify the cost of every edge according to the following 
 	\Vertex[label=$t_2$,x=3]{t2}
 	\Vertex[x=1.5,y=1]{middle}
 	\Vertex[x=1.5,y=3,label=$s$]{s}
-	\Edge[label=$1$,style={dashed},fontcolor=black, color=red!50,position={above=1mm},lw=3pt](t1)(middle)
+	\Edge[label=$1$,style={dashed},fontcolor=black, color=red!30,position={above=1mm},lw=3pt](t1)(middle)
 	\Edge[label=$1$,position={above=1mm}](t2)(middle)
 	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
@@ -521,7 +561,7 @@ set $p_1(e) = 1$
 	\Vertex[x=1.5,y=1]{middle}
 	\Vertex[x=1.5,y=3,label=$s$]{s}
 	\Edge[label=$1$,position={above=1mm}](t1)(middle)
-	\Edge[label=$1$,,style={dashed},fontcolor=black,lw=3pt,color=red!50,position={above=1mm}](t2)(middle)
+	\Edge[label=$1$,,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={above=1mm}](t2)(middle)
 	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
 \end{tikzpicture}
@@ -543,7 +583,7 @@ set $p_2(e) = 1$
 	\Vertex[x=1.5,y=3,label=$s$]{s}
 	\Edge[label=$1$,position={above=1mm}](t1)(middle)
 	\Edge[label=$1$,position={above=1mm}](t2)(middle)
-	\Edge[label=$1-\epsilon$,,style={dashed},fontcolor=black,lw=3pt,color=red!50,position={right = 2mm}](s)(middle)
+	\Edge[label=$1-\epsilon$,,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={right = 2mm}](s)(middle)
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
 \end{tikzpicture}
 \column{0.5\textwidth}
@@ -560,40 +600,120 @@ set $p_2(e) = 1-2\epsilon$
 \end{columns}
 \end{frame}
 
-
 \begin{frame}{Proof of \(p\) Being Nash Equilibrium}
 \begin{corollary}
-	The final payment function produced by the above algorithm is indeed a Nash equilibrium.
+	If $T^*$ is fully paid in the end of the game, the final payment function produced by the above algorithm is indeed a Nash equilibrium.
 \end{corollary}
 \vspace{10pt}
 By assigning $p_i(e) = min\{c(A_i) - \sum_{e\in T^*}p_i(T^*), c(e) - \sum_{j\in T_i,j\neq i}p_j(e)\}$, we ensure that player \(i\) will never contribute to \(e\) more than the cost of deviation. \\
 \vspace{10pt}
 In another word, it is never player $i$'s interests to deviate from buying $e$. And this holds true for every player in every edge in $T^*$. Therefore, \(p\) is indeed a Nash equilibrium. 
-
 \end{frame}
 
-\begin{frame}{Proof of Price of Stability Being 1}
-To prove that the price of stability is always 1, we need to demonstrate that in the end of the game, every edge in \(T^*\) is fully paid. 
-\end{frame}
-
-\begin{frame}{Proof Agenda}
-First, we are going to assume that the following lemma is true. 
+\begin{frame}{An Assumption}
+First, assume that the following lemma is true. 
 \vspace{10pt}\\
 Suppose \(A_i\) is \(i\)'s alternative path at some stage of the algorithm. Then suppose there are two nodes \(v\) and \(w\) on \(A_i\) that divides this path into three parts. Let edges on \(A_i\) from \(t_i\) to \(v\) be \(f_1\), from \(v\) to \(w\) be \(f_2\), from \(w\) to \(s\) be \(f_3\).
-\vspace{10pt}
 \begin{lemma}
-	There must exist a pair of \(\{v,w\}\) such that \(f_1 \in T_e\), \(f_2 \notin T^*\), \(f_3 \in T^*\setminus T_e\).
+    There must exist a pair of \(\{v,w\}\) such that \(f_1 \in T_e\), \(f_2 \notin T^*\), \(f_3 \in T_s\).
 \end{lemma}
 \vspace{10pt}
-Once \(A_i\) leaves \(T_e\), it will never go back to \(T_e\) again.
+
+\textbf{Prove $T^*$ is fully paid via contradiction.}
 \end{frame}
 
+\begin{frame}{An Assumption}
+    \centering
+\begin{tikzpicture}[scale=0.7]
+    \coordinate (s) at (2,2);
+    \coordinate (e_upper) at (0.5,0.5);
+    \coordinate (e_lower) at (-1.5,-1);
+    \coordinate (t_i) at (0,-5);
+    \coordinate (t_1) at (-2,-5);
+    \coordinate (t_iup) at (-0.5,-3);
+    \coordinate (u) at (3,-1);
+    \coordinate (v) at (1,-2);
+    \node[draw,circle,fill=lightblue,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (s)  {\footnotesize $s$};
+    \node[draw,circle,fill=gray,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (t_i)  {\footnotesize $t_i$};
+    \node[draw,circle,fill=gray,thick,inner sep=3pt,minimum size=5pt] (CircleNode) at (e_upper){};
+    \node[draw,circle,fill=gray,thick,inner sep=3pt,minimum size=5pt] (CircleNode) at (e_lower){};
+    \node[draw,circle,fill=gray,thick,inner sep=3pt,minimum size=5pt] (CircleNode) at (t_iup){};
+    \node[draw,circle,fill=gray,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (u){\footnotesize $u$};
+    \node[draw,circle,fill=gray,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (v){\footnotesize $v$};
+
+    \Edge[style={dashed},label=$e$,fontcolor=black,fontscale =1.5,color=gray!50](e_upper)(e_lower)
+    \Edge[style={dashed}](e_lower)(t_iup)
+    \Edge[style={dashed}](e_lower)(v)
+    \Edge[style={dashed}](e_upper)(s)
+    \Edge[color=red!50](t_i)(t_iup)
+    \Edge[style={dashed},color=red!50,label=$f_1$,position={above=1.5mm,left=0.1mm},fontscale=1.5](t_iup)(v)
+    \Edge[style={dashed},RGB,color={0,201,0},label=$f_2$,position={above=2mm},fontscale=1.5](v)(u)
+    \Edge[style={dashed},color=blue,label=$f_3$,position={above=2mm,left=1mm},fontscale=1.5](s)(u)
+    \draw[line width=0.5mm,dashed,-stealth] plot[smooth] coordinates {([xshift=15pt]t_i)([xshift=15pt]t_iup)([xshift=30pt]v) ([xshift=15pt]u) ([xshift=10pt]s)};
+    \node at (2.5,-3){$A_i$};
+    % \draw[color=blue!50,thick] (e_lower) to[closed, curve through = {(v)(t_i)(t_1)}] (e_lower); 
+\end{tikzpicture}
+  
+\end{frame}
 \begin{frame}{Proof via Contradiction}
 \begin{lemma}
 	All edges in \(T^*\) are bought, i.e. $\sum p_i(e) = c(e)$ for any $e \in T^*$.
 \end{lemma}
-
 Suppose there exists some edge \(e\) such that after all players in \(T_e\) have contributed to that edge, \(p_i(e) < c(e)\), we can prove that \(T_e\) costs more than \(\bigcup_{i\in T_e} A_i\) which is a contradiction of \(T^*\) is \(OPT\).
+\end{frame}
+
+\begin{frame}{Deviation Point}
+    \begin{definition}
+        For each player $i$, name the highest ancestor of $t_i$ in $A_i$ that is also in $T_e$, player $i$'s deviation point, denoted $d_i$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{$T_i$ is fully paid}
+Let $T_i$ be the subtree rooted from $d_i$
+\begin{fact}
+    $T_i$ is fully paid.
+\end{fact}
+\end{frame}
+
+
+\begin{frame}{$T^*$ is fully paid}
+    We modify $T^*$ by replacing $T_e$ as follows: 
+those players $i$ whose alternative paths $A_i$ are associated with nodes in D deviate to $A_i$.
+
+All other players leave their payments unchanged.
+
+Note that no player has increased their expenditures.
+
+If we can show that all terminals in $T_e$ are connected
+to $T^*\setminus T_e$ after this modification, we're done.
+\end{frame}
+
+\begin{frame}{Proof of Lemma}
+    \begin{lemma}
+        \(f_1 \in T_e\), \(f_2 \notin T^*\), \(f_3 \in T_s\).
+    \end{lemma}
+    \vspace{10pt}
+
+    Suppose once $A_i$ reaches a node in $T_s$, then all subsequent egdes will be in $T_s$ as edges in $T_s$ cost 0 under modified cost. \\
+    \vspace{10pt}
+    $A_i$ will always reach a node in $T_s$ since $s \in T_s$.\\
+    \vspace{10pt}
+    So we only need to prove that only $A_i$ leaves $T_e$ it will only be in $G\setminus T_e$, i.e. \textbf{$A_i$ does not go back to $T_e$ anymore.} We show this by contradiction. 
+\end{frame}
+
+\begin{frame}{Proof of Lemma}
+    Suppose there are two nodes \(v\) and \(w\) on \(A_i\) that divides the part of $A_i$ before reaching to $T_s$ into three parts such that \(f_1 \in T_e\), \(f_2 \notin T^*\), \(f_3 \in T_e\).\\
+    \vspace{10pt}
+\end{frame}
+
+\begin{frame}{Proof of Lemma}
+    Let $y$ be the lowest comman ancestor of $t_i \text{ and } u \text{ in } T_e$
+\end{frame}
+
+\begin{frame}{Best Equilibrium}
+    \begin{theorem}
+        For every single source game, there always exists a Nash equilibrium with price of stability being 1.
+    \end{theorem}
 \end{frame}
 
 \begin{frame}{Approximate Nash Equilibrium}
@@ -613,10 +733,10 @@ If we are given an approximated Steiner tree \(T\) and try to use the same algor
 	\Vertex[label=$t_2$,x=3]{t2}
 	\Vertex[x=1.5,y=1]{middle}
 	\Vertex[x=1.5,y=3,label=$s$]{s}
-	\Edge[label=$1$,fontcolor=black,color=red!50,position={above=1mm}](t1)(middle)
-	\Edge[label=$1$,fontcolor=black,color=red!50,position={above=1mm}](t2)(middle)
+	\Edge[label=$1$,fontcolor=black,color=red!30,position={above=1mm}](t1)(middle)
+	\Edge[label=$1$,fontcolor=black,color=red!30,position={above=1mm}](t2)(middle)
 	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
-    \Edge[label=$1+\epsilon$,fontcolor=black,color=red!50,position={above left=2mm}](t1)(s)
+    \Edge[label=$1+\epsilon$,fontcolor=black,color=red!30,position={above left=2mm}](t1)(s)
 \end{tikzpicture}
 \end{frame}
 
@@ -630,7 +750,7 @@ If we are given an approximated Steiner tree \(T\) and try to use the same algor
 	\Vertex[x=1.5,y=1]{middle}
 	\Vertex[x=1.5,y=3,label=$s$]{s}
 	\Edge[label=$1$,position={above=1mm}](t1)(middle)
-	\Edge[label=$1$,style={dashed},fontcolor=black,lw=3pt,color=red!50,position={above=1mm}](t2)(middle)
+	\Edge[label=$1$,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={above=1mm}](t2)(middle)
 	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
 \end{tikzpicture}
@@ -650,7 +770,7 @@ set $p_2(e) = 1$
 	\Vertex[label=$t_2$,x=3]{t2}
 	\Vertex[x=1.5,y=1]{middle}
 	\Vertex[x=1.5,y=3,label=$s$]{s}
-	\Edge[label=$1$,style={dashed},fontcolor=black,lw=3pt,color=red!50,position={above=1mm}](t1)(middle)
+	\Edge[label=$1$,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={above=1mm}](t1)(middle)
 	\Edge[label=$1$,position={above=1mm}](t2)(middle)
 	\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
