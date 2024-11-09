@@ -294,11 +294,13 @@ When players start to behave selfish, i.e. they would like to seek the minimum t
     \end{theorem}
     Nash's theorem states that any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium.\\ 
     \vspace{10pt}
-    In the context of large-scale network creation, allowing players choosing their strategies randomly does not make much sense. \textbf{We are only interested in the pure Nash equilibrium in connection game.}
+    In the context of large-scale network creation, allowing players choosing their strategies randomly does not make much sense. We are also not interested in the expected payoff but a certain result.\\
+    \vspace{10pt}
+    \textbf{We are only interested in the pure Nash equilibrium in connection game.}
 \end{frame}
 
 \begin{frame}{No Existence of Nash Equilibrium}
-    \textbf{Pure Nash equilibrium may not exist in the connection game if we only allow players to pay for the whole edge not pay at all.}\\
+    \textbf{Pure Nash equilibrium may not exist in the connection game if we only allow players to pay for the whole edge or not at all.}\\
     \vspace{20pt}
     \centering
     \begin{tikzpicture}
@@ -418,15 +420,16 @@ When players start to behave selfish, i.e. they would like to seek the minimum t
 \end{definition}
 \end{frame}
 
-\begin{frame}{How Can We Assign $P$}
+\begin{frame}{Possible Strategies}
     \begin{enumerate}
-        \item Best Dynamics 
+        \item Best Response Dynamics 
+        \item Marginal Cost mechanisms
         \item Shapely Value 
         \item Utilizing minimum Steiner Tree
     \end{enumerate}
 \end{frame}
 
-\begin{frame}{Best Dynamics}
+\begin{frame}{Best Response Dynamics}
     \centering
     \begin{tikzpicture}[scale=0.9]
         \Vertex[x=0,y=0]{t11}
@@ -508,7 +511,7 @@ In every iteration, we modify the cost of every edge according to the following 
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Algorithm}
+\begin{frame}{Algorithm for Assigning $p_i(e)$}
 \begin{algorithm}[H]
 \begin{algorithmic}[1]
     \STATE $p_i(e) \gets 0, \forall t_i \in R, \forall e \in E$ 
@@ -519,7 +522,7 @@ In every iteration, we modify the cost of every edge according to the following 
     \STATE \(c(e) \gets p_i(f)  \qquad \forall e \in T_e\) 
 	\STATE \(c(e) \gets 0 \qquad \forall e \in T_S\) 
     \STATE $A_i \gets$ the cheapest alternative path from \(s\) to \(t_i\) in $G\setminus\{e\}$ 
-    \STATE \(p_i(e) \gets min\{c(A_i) - \sum_{e\in T^*}p_i(e),c(e)-\sum_{j}p_j(e) \}\)
+    \STATE \(p_i(e) \gets min\{c(A_i) - \sum_{e\in T^*}p_i(e), c(e)-\sum_{j}p_j(e) \}\)
     \ENDIF
     \ENDWHILE
 \end{algorithmic}
@@ -694,7 +697,7 @@ to $T^*\setminus T_e$ after this modification, we're done.
     \end{lemma}
     \vspace{10pt}
 
-    Suppose once $A_i$ reaches a node in $T_s$, then all subsequent egdes will be in $T_s$ as edges in $T_s$ cost 0 under modified cost. \\
+    Suppose once $A_i$ reaches a node in $T_s$, then all subsequent edges will be in $T_s$ as edges in $T_s$ cost 0 under modified cost. \\
     \vspace{10pt}
     $A_i$ will always reach a node in $T_s$ since $s \in T_s$.\\
     \vspace{10pt}
@@ -707,7 +710,7 @@ to $T^*\setminus T_e$ after this modification, we're done.
 \end{frame}
 
 \begin{frame}{Proof of Lemma}
-    Let $y$ be the lowest comman ancestor of $t_i \text{ and } u \text{ in } T_e$
+    Let $y$ be the lowest common ancestor of $t_i \text{ and } u \text{ in } T_e$
 \end{frame}
 
 \begin{frame}{Best Equilibrium}
@@ -716,15 +719,18 @@ to $T^*\setminus T_e$ after this modification, we're done.
     \end{theorem}
 \end{frame}
 
-\begin{frame}{Approximate Nash Equilibrium}
+\begin{frame}{Hardness of Steiner Tree}
     Although we proved that the determined existence of Nash equilibrium in single source game, \textbf{the algorithm presented is not feasible} as the finding the minimum cost Steiner tree is NP-hard by itself. \\
     \vspace{10pt}
-\begin{definition}[Approximate Equilibrium]
-	A \((1+\epsilon)\)-approximate Nash Equilibrium is a payment function \(p\) such that player \(i\) would not deviate their payment by a factor of \(1+\epsilon\).
-\end{definition}
+
+    It has been proven that it is NP-hard to approximate Steiner tree problem within ratio \(96/95\). \\
+    \begin{equation*}
+        c(T) = \alpha c(T^*)
+    \end{equation*}
+   
 \end{frame}
 
-\begin{frame}{Approximate Nash Equilibrium in Connection Game}
+\begin{frame}{Approximate Steiner Tree Will Fail at Archiving Nash Equilibrium}
 If we are given an approximated Steiner tree \(T\) and try to use the same algorithm to assign \(p_i(e)\) in \(T\), since \(T\) is not optimal, there will be some edge \(e\) that players are unwilling to pay for. \\
 \vspace{20pt}
 \centering
@@ -787,14 +793,71 @@ In the end of the game, $e$ is not fully paid! Player 2 will deviate.
 \end{frame}
 
 \begin{frame}{Approximate Nash Equilibrium in Connection Game}
-\begin{theorem}
-	Given a single source game and \(\alpha\) approximation of minimum-cost Steiner tree \(T\), \(\forall \epsilon > 0\) , there is a polynomial algorithm which return a \((1+\epsilon)\)-approximation \textit{Nash equilibrium} on Steiner Tree \(T^{'}\), where $c(T^{'}) \leq c(T)$.
-\end{theorem}
+    \begin{definition}[Approximate Equilibrium]
+	    A \((1+\epsilon)\)-approximate Nash Equilibrium is a payment function \(p\) such that player \(i\) would not deviate their payment by a factor of \(1+\epsilon\).
+    \end{definition}
+    Let $ p_i^{'}(T)$ be player's final payment\\
+   \centering
+    $ p_i^{'}(e) \leq (1+\epsilon)p_i(e)$
+
 \end{frame}
 
+\begin{frame}{Approximate Nash Equilibrium in Connection Game}
+    \begin{theorem}
+        Given a single source game and \(\alpha\) approximation of minimum-cost Steiner tree \(T\), \(\forall \epsilon > 0\), there is a polynomial algorithm which return a \((1+\epsilon)\)-approximation \textit{Nash equilibrium} on Steiner Tree \(T^{'}\), where $c(T^{'}) \leq c(T)$.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Proof Sketch}
+    Propose an algorithm that forms a cheaper tree whenever a Nash equilibrium cannot be found.
+
+    \begin{equation*}
+        \gamma = \frac{\epsilon c(T)}{(1+\epsilon)n\alpha}
+    \end{equation*}
+    In every iteration of previous algorithm, we pay every edge $\gamma$\\
+\end{frame}
+
+\begin{frame}{Algorithm for Approximate Nash Equilibrium}
+    \begin{algorithm}[H]
+        \begin{algorithmic}[2]
+            \STATE $c(e) \gets  c(e) -\gamma \quad \forall e \in T$
+            \STATE Run Algorithm 1 to attempt to pay for on $T$ under modified cost
+            \WHILE{\( e \in T \) }
+            \IF{\(e\) is not fully paid}
+            \STATE  Adjust \( T\) by replacing \(T_e\) with  \(\bigcup_{i\in T_e} A_i\) to get \(T^{'}\)
+            \STATE $c(e) \gets  c(e) -\gamma \quad \forall e \in T^{'}$
+            \STATE Run Algorithm 1 to pay for $T^{'}$ under modified cost
+            \STATE $P(T^{'}) \gets \sum_i p_i(T^{'})$
+            \STATE $p_i^{'}(e) \gets p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\quad \text{ for all players and every } e \in T^{'}$
+            \ENDIF
+            \ENDWHILE
+        \end{algorithmic}
+        \caption{pseudocode for approximate Nash Equilibrium }
+        \end{algorithm}
+\end{frame}
+
+\begin{frame}{$T^{'}$ Is Fully Paid under $P^{'}$ and Algorithm 2 Runs in Polynomial Time}
+    $T^{'}$ is fully paid as $\sum_i p_i^{'}(e) = \sum_i p_i(e) + \gamma$\\
+    Whenever \( e \in T \) is not fully paid, we form a new tree $T^{'}$, and $c(T^{'}) \leq c(T) - \gamma $.\\
+    Therefore, we need to reconstruct our Steiner tree most  $\frac{c(T)}{\gamma} = \frac{(1+\epsilon)n\alpha }{\epsilon}$ times.
+
+\end{frame}
+
+\begin{frame}{$P^{'}(T^{'})$ Is A $(1+\epsilon)$ Nash Equilibrium}
+    \[p_i^{'}(e) = p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\]
+    \vspace{10pt}
+    Suppose $T^{'}$ has $m$ edges:
+    \[p_i^{'}(T^{'}) = p_i(T^{'}) + \gamma\frac{p_i(T^{'})}{P(T^{'})}m = p_i(T^{'}) + \gamma\frac{p_i(T^{'})}{c(T^{'}) - m\gamma}\]
+    
+\end{frame}
+
+\begin{frame}{$P^{'}(T^{'})$ Is A $(1+\epsilon)$ Nash Equilibrium}
+    \begin{align*}
+    p_i^{'}(T^{'}) - p_i(T^{'}) &=  \gamma\frac{p_i(T^{'})}{c(T^{'}) - m\gamma}m\\  &= \frac{\epsilon c(T) p_i(T^{'}) m }{(1+\epsilon)n\alpha(c(T^{'}) - m\gamma)}  \\ &=  \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha n(\frac{c(T^{'})}{m} - \gamma)} \\ &=  \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha n(\frac{1}{m} - \frac{\gamma}{c(T^{'})})c(T^{'})}   
+    \end{align*}
+\end{frame}
 \begin{frame}{Lower Bound of Approximate Nash Equilibrium}
-It has been proven that it is NP-hard to approximate Steiner tree problem within ratio \(96/95\). \\
-The closest approximation ratio has been obtained so far is 1.55 by modeling this problem into linear programming and randomized rounding. 
+    The closest approximation ratio has been obtained so far is 1.55 by modeling this problem into linear programming and randomized rounding.
 \end{frame}
 
 \begin{frame}{Frame Title}

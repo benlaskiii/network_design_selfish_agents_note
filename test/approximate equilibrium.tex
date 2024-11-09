@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage{latexsym}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{amsthm, amsmath,amsfonts, amssymb}
+\usepackage{algorithm,algorithmic}
+\usepackage{tikz-network}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{color}
+
+\voffset=-2.2cm
+\hoffset=-2.1cm
+
+\setlength{\textwidth}{16.8cm}
+\setlength{\textheight}{22.8cm}
+
+\begin{document}
+Define $\gamma = \frac{\epsilon c(T)}{(1+\epsilon)n\alpha}$
+    \begin{algorithm}[H]
+        \begin{algorithmic}[2]
+            \STATE $c(e) \gets  c(e) -\gamma \quad \forall e \in T$
+            \STATE Run Algorithm 3.3 to attempt to pay for on $T$ under modified cost
+            \WHILE{\( e \in T \) }
+            \IF{\(e\) is not fully paid}
+            \STATE  Adjust \( T\) by replacing \(T_e\) with  \(\bigcup_{i\in T_e} A_i\) to get \(T^{'}\)
+            \STATE $c(e) \gets  c(e) -\gamma \quad \forall e \in T^{'}$
+            \STATE Run Algorithm 3.3 to pay for $T^{'}$ under modified cost
+            \STATE $P(T^{'}) \gets \sum_i p_i(T^{'})$
+            \STATE $p_i^{'}(e) \gets p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\quad \text{ for all players and every } e \in T^{'}$
+            \ENDIF
+            \ENDWHILE
+        \end{algorithmic}
+        \caption{pseudocode for approximate Nash Equilibrium }
+        \end{algorithm}
+
+    $T^{'}$ is fully paid as $\sum_i p_i^{'}(e) = \sum_i p_i(e) + \gamma$\\
+   
+
+    Whenever \( e \in T \) is not fully paid, we form a new tree $T^{'}$, and $c(T^{'}) \leq c(T) - \gamma $.\\
+    Therefore, we need to reconstruct our Steiner tree most  $\frac{c(T)}{\gamma} = \frac{(1+\epsilon)n\alpha }{\epsilon}$ times.Thus the algorithm runs in polynomial time.\\
+
+    \textbf{Proof $P^{'}$ being $(1+\epsilon)$ Nash Equilibrium}
+    \[p_i^{'}(e) = p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\]
+    \vspace{10pt}
+    Suppose $T^{'}$ has $m$ edges:
+    \[p_i^{'}(T^{'}) = p_i(T^{'}) + \gamma\frac{p_i(T^{'})}{P(T^{'})}m = p_i(T^{'}) + \gamma\frac{p_i(T^{'})}{c(T^{'}) - m\gamma}\]
+    
+    \begin{align*}
+    p_i^{'}(T^{'}) - p_i(T^{'}) &=  \gamma\frac{p_i(T^{'})}{c(T^{'}) - m\gamma}m\\  &= \frac{\epsilon c(T) p_i(T^{'}) m }{(1+\epsilon)n\alpha(c(T^{'}) - m\gamma)}  \\ &=  \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha n(\frac{c(T^{'})}{m} - \gamma)} \\ &=  \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha (\frac{n}{m} - \frac{n\gamma}{c(T^{'})})c(T^{'})} 
+    \end{align*}
+
+    There in the paper, the proof simply goes as 
+    \begin{align*}
+        \frac{\epsilon c(T) p_i(T^{'}) m }{(1+\epsilon)n\alpha(c(T^{'}) - m\gamma)} &\leq \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha(1-\epsilon)c(T^{'})}
+    \end{align*}
+    which implies that $\frac{n}{m} - \frac{n\gamma}{c(T^{'})} \geq (1-\epsilon) $\\
+    However, I believe that  $\frac{n}{m} $ would be less or equal to 1. And here I found that $\frac{n\gamma}{c(T^{'})} \geq \epsilon$. This means $\frac{n}{m} - \frac{n\gamma}{c(T^{'})} \leq (1-\epsilon) $. So I'm not sure how they get into this step and also the later part $ \frac{\epsilon c(T) p_i(T^{'})}{(1+\epsilon)\alpha(1-\epsilon)c(T^{'})} \leq \epsilon p_i(T^{'})$.
+
+    \[\frac{n\gamma}{c(T^{'})} = \frac{\epsilon c(T) n}{(1+\epsilon)n\alpha c(T^{'})} = \frac{\epsilon c(T) }{(1+\epsilon)\alpha c(T^{'})}\]
+    \[c(T) \geq c(T^{'})\]
+    \[\frac{n\gamma}{c(T^{'})} \geq \frac{\epsilon}{(1+\epsilon)\alpha},\alpha \ge 1 \]
+    \[\frac{n\gamma}{c(T^{'})} \ge \epsilon\]
+
+
+\end{document}
