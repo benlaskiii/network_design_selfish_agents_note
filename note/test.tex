@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{subcaption}% Offers an user interface to sub-captions.
+\usepackage{float}% Improves the interface for defining floating objects
+
+\begin{document}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.30\textwidth}
+\includegraphics[width=\textwidth]{example-image}
+\caption{Firts subfigure.}
+\label{fig:first}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.30\textwidth}
+\includegraphics[width=\textwidth]{example-image}
+\caption{Second subfigure.}
+\label{fig:second}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.30\textwidth}
+\includegraphics[width=\textwidth]{example-image}
+\caption{Third subfigure.}
+\label{fig:third}
+\end{subfigure}
+    
+\caption{Creating subfigures in \LaTeX.}
+\label{fig:figures}
+\end{figure}
+
+\end{document}
