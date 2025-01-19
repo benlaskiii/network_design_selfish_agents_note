@@ -1,1 +1,0 @@
-{"rule":"PHRASE_REPETITION","sentence":"^\\QShortest Path Minimum Spanning Tree Steiner Tree Steiner tree problem with different number of terminals\\E$"}
