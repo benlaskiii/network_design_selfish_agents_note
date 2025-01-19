@@ -47,12 +47,32 @@
 \section{Introduction}
 
 \subsection{Classic Generalized Steiner Tree and Steiner Forest problem}
-In the classic generalized Steiner tree, we are given an undirected graph \(G = (V,E)\) with non-negative edge cost \(c_e \geq 0\) for every edge $c_e \in E$ and a set of terminals $R \subseteq V $. The goal is to compute the minimum-cost subgraph that spans all terminals. Whereas in the Steiner forest problem, we are given a collection of disjoint subsets of \(V: V_1,V_2,V_3,...V_n\). The goal is to compute a subgraph that any two vertices that belong to the same subset \(V_i\) are connected. 
+In the classic generalized Steiner tree, we are given an undirected graph \(G = (V,E)\) with non-negative edge cost \(c_e \geq 0\) for every edge $c_e \in E$ and a set of terminals $R \subseteq V $. The goal is to compute the minimum-cost subgraph that spans all terminals. When the number of terminals is 2, it is the shortest path problem which can be solved in polynomial time using Dijkstra's problem. When the number of terminals equal to the number of vertices in the graph, it is the minimum spanning tree problem that can also be solved in polynomial time using Prim's algorithm. When $ 2 < |R| < |V|$, unless $P$ is equal to $NP$ there is no known polynomial algorithm to find the optimal solution for the Steiner tree problem.
+\begin{figure}[H]
+	\begin{center}
+		\begin{subfigure}[b]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{pictures/shortestpath.pdf}
+			\caption{Shortest Path}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}[b]{0.25\textwidth}
+			\includegraphics[width=\textwidth]{pictures/mst.pdf}
+			\caption{Minimum Spanning Tree}
+		\end{subfigure}
+		\hspace{10pt}
+		\begin{subfigure}[b]{0.25\textwidth}
+			\includegraphics[width=\textwidth]{pictures/steinertree.pdf}
+			\caption{Steiner Tree}
+		\end{subfigure}
+		\caption{Steiner tree problem with different number of terminals}
+	\end{center}
+\end{figure}
 
-The Steiner Tree problem is a Steiner Forest problem with a single subset of \(V\). We will denote the optimal solution of both problems as OPT. Finding OPT is NP-hard. 
+Similar as the Steiner tree problem, in the Steiner forest problem, we are given a collection of disjoint subsets of \(V: V_1,V_2,V_3,...V_n\). The goal is to compute a subgraph that any two vertices that belong to the same subset \(V_i\) are connected. The Steiner Tree problem is a Steiner Forest problem with a single subset of \(V\).  
 
 \subsection{Introduction of Selfish Agents}
-In real life, the design of network often involves selfish agents. Imaging the train routes among major cities in Europe, Paris, Munich, Berlin, and Milan. Every city would like to connect to all other cities. However, there won't be a single company that can design the minimum cost network and implement such network. Instead, every city would like to seek the route that they can pay less rather than the route that requires more. 
+In real life, many networks are often developed and maintained by many selfish agents, for example, the Internet and traffic networks cross multiple countries. In such networks, agents tend to orient their behaviors to their own interests rather than the central optimal. Such selfish behaviors will potentially lead to a deviation from the central optimal. More specifically, given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money, and they would like to pay a little as possible. For example, as shown in Fig \ref{fig:deviation}, both agents $t_1$ and $t_2$ would like to connect to the source $s$. The optimal solution clearly involves buying all edges except $t_1s$. However, if agents $t_1$ needs to pay more than $1+\epsilon$ for the optimal solution, they will just choose to pay for $t_1s$ and the total cost of the whole network will therefore be increased.
+
 \begin{figure}[H]
 	\begin{center}
 	\begin{tikzpicture}
@@ -66,10 +86,9 @@ In real life, the design of network often involves selfish agents. Imaging the t
 	\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
 	\end{tikzpicture}
 	\end{center}
-	\caption{Example}
+	\caption{An example of possible deviation from $OPT$.}
+	\label{fig:deviation}
 \end{figure}
-
-Given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money, and they would like to pay a little as possible. 
 
 \subsection{Formal Definition of Connection Game}
 Here we formally define the connection game for \(N\) players as following:
@@ -84,8 +103,7 @@ If the sum of payment on certain edge \(e\) is larger than the cost on that edge
 
 \section{Nash Equilibrium in Connection Game}
 \subsection{Definition of Nash Equilibrium}
-
-A crucial idea of modern game theory introduced by von Neumann is mixed strategies i.e. randomization of pure strategies. Von Neumann's work mostly stayed in zero-sum games. John Nash further extended game theory into \(N\) players general games.  
+A crucial idea of modern game theory introduced by John von Neumann is the concept of \textit{mixed strategies}, which involves randomizing over pure strategies to optimize decision-making in competitive situations. This approach works particularly in \textit{zero-sum games}, where one player's gain is exactly balanced by the losses of other players. John Nash later expanded the scope of game theory significantly by introducing the concept of equilibrium in \textit{general \(N\)-player games}, demonstrating that every game with a finite number of players and strategies possesses at least one equilibrium point where no player can improve their payoff. 
 \begin{theorem}[Nash's theorem]
 	With randomization, any game with finite number of players and actions has a mixed-strategy of Nash equilibrium.
 \end{theorem}
@@ -93,10 +111,9 @@ More specifically, the definition of Nash Equilibrium in Connection Game is defi
 \begin{definition}[Nash Equilibrium in Connection Game]
 	A Nash equilibrium of the connection game is a payment function $p$ such that, if players offer payments \(p\), no payer has an incentive to deviate from their payment. 
 \end{definition}
-Since we only have a finite number of players, we could say our game is a finite game without losing generality as long as we only allow payment function of each player to be real number. At first glance, if we allow players to pay fractional number, there will exist infinite number of strategies. But we could scale the cost of each edge from fractional to integer. Therefore, w.o.l.g connection game is indeed a finite game. According to Nash's theorem, any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium. However, in the context of large-scale network creation, allowing players choosing their strategies randomly does not make much sense. We are also not interested in the expected payoff but a certain result.\textbf{ We are only interested in the pure Nash equilibrium in connection game.}
+At first glance, if we allow players to pay fractional number, there will exist infinite number of strategies. Since we only have a finite number of players, we could say our game is a finite game without losing generality as long as we only allow payment function of each player to be rational number by scaling the cost of each edge from fractional to integer. Therefore, w.o.l.g connection game is indeed a finite game. According to Nash's theorem, any finite game has at least one mixed strategies Nash equilibrium but no grantee on pure strategy equilibrium. However, in the context of large-scale network creation, allowing players choosing their strategies randomly does not make much sense. We are also not interested in the expected payoff but a certain result.\textbf{ We are only interested in the pure Nash equilibrium in connection game.}
 
 \subsection{Some Properties of Nash Equilibrium in Connection Game}
-
 \begin{itemize}
 	\item \(G_p\) is a forest.
 	\item Let \(T^i\) be the smallest tree in \(G_p\) connecting all terminals of player \(i\), then player \(i\) only contributes to edges in \(T^i\).
@@ -104,7 +121,7 @@ Since we only have a finite number of players, we could say our game is a finite
 \end{itemize}
 The first property holds as if there is a cycle in $G_p$, we could remove any edge without influencing any players' connectivity. Property 2 holds for similar reasons. If player $i$ is paying for any edges that are not in $T_i$, they are able to choose to not pay for those edges without influencing their connectivity. The last property is also easy to see as for any edge that is not fully paid, players that are paying for those edges can just choose to not pay at all without changing the final graph. 
 
-According to these properties, we can find a game where pure equilibrium does not exist at all. As in shown in Fig:\ref{fig:noequi} 
+According to these properties, we can find a game where pure equilibrium does not exist at all. As in shown in Fig:\ref{fig:noequi}, there are two players. Player 1 wishes to connect node $s_1$ to node $t_1$ and similar for player 2. Suppose there exists a Nash equilibrium $p$. Then $G_p$ must be a tree. Assume without losing generality, $G_p$ consists edge $s_1s_2$, $s_2t_1$, and $t_2t_1$. By the first property, player 1 and player 2 will only contribute to $s_1s_2$ and $t_2t_1$ respectively. This leaves the payment function of $s_2t_1$ to be decided. 
 
 \begin{figure}[H]
 	\begin{center}
@@ -120,9 +137,12 @@ Pure Nash equilibrium may not exist in the connection game.
 
     
 \subsection{Fractional Nash Equilibrium}
+Our life would be much simpler if we only let players choose to pay for an edge or not at all. However, some games require players to share costs on some edges for the existence of Nash equilibrium. We define such equilibrium as fractional Nash equilibrium.
+
 \begin{definition}[Fractional Nash Equilibrium]If Nash equilibrium requires players to split cost of some edge, such Nash Equilibrium is fractional.	
 \end{definition}
 
+As shown in Fig:\ref{fig:fracquil}, player 1 would like to connect $s_1$ to $t_2$ and similarly for player 2. Suppose edge $t_2t_1$ is not bought, then this leads to the case of no existence of equilibrium at all as shown in Fig:\ref{fig:noequi}. Therefore, any equilibrium must involve buying edge $t_1t_2$. 
 \begin{figure}[H]
 \begin{center}
 \begin{tikzpicture}
@@ -188,11 +208,6 @@ As we have talked before, it is not much of our interests to study the worst equ
 
 Now suppose the minimum cost Steiner tree \(T^*\) over all players' terminals is given on a sliver plate, we are going to drive an algorithm that gradually assigns each player \(i\) a payment strategy on edge \(e\). Then we are going to prove that the final payment function \(p\) will end up as an equilibrium and yield price of stability as 1.  
 
-% It is trivial to see that every leaf node in \(T^*\) is a terminal as if not it is possible to simply discard this node and corresponding edge without affecting the connection of any terminals.
-% \begin{fact}
-% 	Every leaf node in \(T^*\) is a terminal. 
-% \end{fact}
-
 \subsection{Payment Strategy Design}
 We know that we are going to assign every edge in \(T^*\) but the problem is which edge we are going to assign first. The intuition is to assign edges that are known for sure which players are interested in. First, let \(T^*\) be rooted from \(s\). We will visit \(T^*\) in reverse breadth-first-search order. For every edge \(e\), suppose \(e\) is removed from \(T^*\), \(T^*\) will be divided into two subtrees. Let the subtree that does not contain \(s\) be \(T_e\) and the one contains \(s\) be \(T_s\). It is clear to see that players in \(T_s\) would not be interested in paying anything for \(e\) as discarding \(e\) will not affect their connection to \(s\) at all. Suppose a player can only connect to \(s\) through one path that no edges are shared by any other players, they would have to pay the full cost of every edge on that path. The main loop in our algorithms goes as following: we loop every edge \(e \in T^*\) in reserve BFS order, then for every player \(i \in T_e\) we determine \(p_i(e)\).
 
@@ -246,41 +261,6 @@ We can find the cheapest alternative path \(A_i\) from \(t_i\) to \(s\) from \(G
 	\caption{pseudocode for assigning $p_i(e)$ }
 	\label{alg:seq}
 	\end{algorithm}
-	
-% 	\begin{figure}[H]
-% 	\begin{center}
-% 	 \begin{tikzpicture}
-% 		\Vertex[label=$t_1$]{t1}
-% 		\Vertex[label=$t_2$,x=3]{t2}
-% 		\Vertex[x=1.5,y=1]{middle}
-% 		\Vertex[x=1.5,y=3,label=$s$]{s}
-% 		\Edge[label=$1$,style={dashed},fontcolor=black, color=red!30,position={above=1mm},lw=3pt](t1)(middle)
-% 		\Edge[label=$1$,position={above=1mm}](t2)(middle)
-% 		\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
-% 		\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
-% 	\end{tikzpicture}
-% 	 \begin{tikzpicture}
-% 		\Vertex[label=$t_1$]{t1}
-% 		\Vertex[label=$t_2$,x=3]{t2}
-% 		\Vertex[x=1.5,y=1]{middle}
-% 		\Vertex[x=1.5,y=3,label=$s$]{s}
-% 		\Edge[label=$1$,position={above=1mm}](t1)(middle)
-% 		\Edge[label=$1$,,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={above=1mm}](t2)(middle)
-% 		\Edge[label=$1-\epsilon$,position={right = 2mm}](s)(middle)
-% 		\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
-% 	\end{tikzpicture}
-% 	 \begin{tikzpicture}
-% 		\Vertex[label=$t_1$]{t1}
-% 		\Vertex[label=$t_2$,x=3]{t2}
-% 		\Vertex[x=1.5,y=1]{middle}
-% 		\Vertex[x=1.5,y=3,label=$s$]{s}
-% 		\Edge[label=$1$,position={above=1mm}](t1)(middle)
-% 		\Edge[label=$1$,position={above=1mm}](t2)(middle)
-% 		\Edge[label=$1-\epsilon$,,style={dashed},fontcolor=black,lw=3pt,color=red!30,position={right = 2mm}](s)(middle)
-% 		\Edge[label=$1+\epsilon$,position={above left=2mm}](t1)(s)
-% 	\end{tikzpicture}
-% \end{center}
-% \end{figure}
 
 % 	$e$ is not a cut.Consider $c(A_1) = 1+\epsilon, \quad p_1(T^*) = 0$
 % 	$c(e) = 1, \quad  \sum_{j}p_j(e) = 0$
@@ -375,7 +355,7 @@ To prove that every edge in \(T^*\) is fully paid in the end, first we are going
 Suppose once $A_i$ reaches a node in $T_s$, then all subsequent edges will be in $T_s$ as edges in $T_s$ cost 0 under modified cost. Since $s \in T_s$, $A_i$ will always reach a node in $T_s$. Therefore, we only need to prove that if $A_i$ leaves $T_e$ it will only be in $G\setminus T_e$, i.e. \textbf{$A_i$ does not go back to $T_e$ anymore.} We show this by contradiction. 
 
 Suppose there are two nodes \(v\) and \(w\) on \(A_i\) that divides the part of $A_i$ before reaching to $T_s$ into three parts such that \(P_1 \in T_e\), \(P_2 \notin T^*\), \(P_4 \in T_e\).Let $y$ be the lowest common ancestor of $t_i \text{ and } w \text{ in } T_e$. Define $P_3$ to be the path from $t_i$ to $y$ in $T_e$. We will show that by replacing $P_1 \bigcup P_2$ with $P_3 \bigcup P_4$, player $i$ would obtain a better deviation than $A_i$.
-		\begin{figure}			
+		\begin{figure}		
 		\begin{center}
 		\includegraphics{pictures/alterpath.pdf}
 		\end{center}
@@ -449,7 +429,7 @@ when deciding the payment of each edge in $P_3$, $p_i(e) \leq c(A_i)$. At any ti
 	\caption{Example}
 	\label{}
 	\end{figure}
-	Suppose we are given an approximated Steiner Tree as in 
+	% Suppose we are given an approximated Steiner Tree as in 
 	% $e$ is not a cut.\\
 	% $c(A_2) = 2-\epsilon,\quad p_2(T^*) =1$\\
 	% $c(e) = 1,\quad \sum_{j}p_j(e) = 0 $\\
@@ -535,7 +515,7 @@ In the general case, players can have different numbers of terminals and do not 
 	The price of stability in general cases can be bad as $\Theta(N)$.
 \end{lemma}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}	
 	\begin{tikzpicture}
 		\coordinate (s) at (0,0);
@@ -567,7 +547,6 @@ In the general case, players can have different numbers of terminals and do not 
 	\end{center}
 	\caption{A game with high price of stability}
 \end{figure}
-
 	As shown in the figure, each player $i$ owns terminals $s_i$ and $t_i$. The optimal
 	centralized solution has cost $1 + 3\epsilon$ involves edge from $s_3,....s_N$ to $t_3,....t_N$ and any three edges with cost of $\epsilon$. However, if the path of length 1 were bought, each player $3...N$ will not be willing	to pay for any edge that costs $\epsilon$. And the situation of players 1 and 2 reduces to the example in Section 2
 	of a game with no Nash equilibrium at all. Therefore, any possible equilibrium will end up paying $N-2$.
@@ -590,6 +569,13 @@ In the general case, players can have different numbers of terminals and do not 
 	\end{itemize}
 	It is clear to see that optimal central design costs $2N-1$ with all the edges in the outer cycle with edge from $s_1$ to $t_N$. 
 		   
+	\begin{figure}
+		\begin{center}
+			\includegraphics{pictures/generalcase.pdf}
+		\end{center}
+		\caption{ A game with the best Nash equilibrium on OPT tending to at least a 3/2 -approximation.}
+	\end{figure}
+
 		\begin{lemma}
 			For any equilibrium than is better than 3/2, player 1 and player N won't pay more than 3. 
 		\end{lemma}
