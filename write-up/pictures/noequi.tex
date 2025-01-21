@@ -38,9 +38,9 @@
         \node[draw,circle,fill=white,thick,minimum size=2pt] (CircleNode) at (t1){\footnotesize $t_1$};
         \node[draw,circle,fill=white,thick,minimum size=2pt] (CircleNode) at (t2){\footnotesize $t_2$};
         \Edge[label=$1$,fontcolor=black,color=red!30,position={above=1mm}](s1)(s2)
-        \Edge[label=$1$,fontcolor=black,color=red!30,position={right=1mm}](s2)(t1)
-        \Edge[label=$1$,fontcolor=black,color=blue!50,style={dashed},position={below=1mm}](t1)(t2)
-        \Edge[label=$1$,position={left=1mm}](t2)(s1)
+        \Edge[label=$1$,fontcolor=black,style={dashed},position={right=1mm}](s2)(t1)
+        \Edge[label=$1$,fontcolor=black,position={below=1mm}](t1)(t2)
+        \Edge[label=$1$,color=red!30,position={left=1mm}](t2)(s1)
     \end{tikzpicture}
 	% \caption{Second subfigure.}
 	% \label{fig:second}
@@ -57,8 +57,8 @@
         \node[draw,circle,fill=white,thick,minimum size=2pt] (CircleNode) at (t2){\footnotesize $t_2$};
         \Edge[label=$1$,fontcolor=black,position={above=1mm}](s1)(s2)
         \Edge[label=$1$,fontcolor=black,position={right=1mm}](s2)(t1)
-        \Edge[label=$1$,fontcolor=black,color=blue!50,position={below=1mm}](t1)(t2)
-        \Edge[label=$1$,fontcolor=black,color=red!30,style={dashed},position={left=1mm}](t2)(s1)
+        \Edge[label=$1$,fontcolor=black,color=red!30, style={dashed},position={below=1mm}](t1)(t2)
+        \Edge[label=$1$,fontcolor=black,color=red!30,position={left=1mm}](t2)(s1)
     \end{tikzpicture}   
 % 	\caption{Third subfigure.}
 % 	\label{fig:third}

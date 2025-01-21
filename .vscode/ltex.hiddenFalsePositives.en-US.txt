@@ -1,1 +1,3 @@
 {"rule":"PHRASE_REPETITION","sentence":"^\\QShortest Path Minimum Spanning Tree Steiner Tree Steiner tree problem with different number of terminals\\E$"}
+{"rule":"PHRASE_REPETITION","sentence":"^\\QShortest Path Minimum Spanning Tree Steiner Tree Steiner tree problem with different number of terminals Similar as the Steiner tree problem, in the Steiner forest problem, we are given a collection of disjoint subsets of \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q.\\E$"}
+{"rule":"EXTREME_ADJECTIVES","sentence":"^\\QAs the price of anarchy can be really bad, we Price of stability is a complementary concept of price of anarchy which evaluate how good the best equilibrium can be.\\E$"}

@@ -26,9 +26,9 @@
 		\node[draw,circle,fill=gray,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (u){\footnotesize $u$};
 		\node[draw,circle,fill=gray,thick,inner sep=2pt,minimum size=5pt] (CircleNode) at (v){\footnotesize $v$};
 	
-		\draw [ draw=none,rounded corners = 3mm,fill=red,fill opacity=0.3]([shift={(-0.5,0.5)}]e_lower)--([shift={(0.5,0.5)}]e_lower)--([shift={(0.5,0.5)}]v)--([shift={(0.5,-1)}]t_i)--([shift={(-0.5,-1)}]t_i)--cycle;
+		\draw [ draw=none,rounded corners = 3mm,fill= blue,fill opacity=0.3]([shift={(-0.5,0.5)}]e_lower)--([shift={(0.5,0.5)}]e_lower)--([shift={(0.5,0.5)}]v)--([shift={(0.5,-1)}]t_i)--([shift={(-0.5,-1)}]t_i)--cycle;
 	
-		\draw [ draw=none,rounded corners = 3mm,fill=blue,fill opacity=0.3]([shift={(0.5,0.5)}]s)--([shift={(0.5,-0.5)}]u)--([shift={(-1,-1)}]e_upper)--([shift={(-0.5,0.5)}]s)--cycle;  
+		\draw [ draw=none,rounded corners = 3mm,fill=red,fill opacity=0.3]([shift={(0.5,0.5)}]s)--([shift={(0.5,-0.5)}]u)--([shift={(-1,-1)}]e_upper)--([shift={(-0.5,0.5)}]s)--cycle;  
 	
 		\Edge[style={dashed},label=$e$,fontcolor=black,fontscale =1.5,color=gray!50](e_upper)(e_lower)
 		\Edge[style={dashed}](e_lower)(t_iup)
