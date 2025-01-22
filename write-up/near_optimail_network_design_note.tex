@@ -70,7 +70,7 @@ In the classic generalized Steiner tree, we are given an undirected graph \(G = 
 Similar as the Steiner tree problem, in the Steiner forest problem, we are given a collection of disjoint subsets of \(V: V_1,V_2,V_3,...V_n\). The goal is to compute a subgraph that any two vertices that belong to the same subset \(V_i\) are connected. The Steiner Tree problem is a Steiner Forest problem with a single subset of \(V\).  
 
 \subsection{Introduction of Selfish Agents}
-In real life, many networks are often developed and maintained by many selfish agents, for example, the Internet and traffic networks cross multiple countries. In such networks, agents tend to orient their behaviors to their own interests rather than the central optimal. Such selfish behaviors will potentially lead to a deviation from the central optimal. More specifically, given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of money, and they would like to pay a little as possible. For example, as shown in Fig \ref{fig:deviation}, both agents $t_1$ and $t_2$ would like to connect to the source $s$. The optimal solution clearly involves buying all edges except $t_1s$. However, if agents $t_1$ needs to pay more than $1+\epsilon$ for the optimal solution, they will just choose to pay for $t_1s$ and the total cost of the whole network will therefore be increased.
+In real life, many networks are often developed and maintained by many selfish agents, for example, the Internet and traffic networks cross multiple countries. In such networks, agents tend to orient their behaviors to their own interests rather than the central optimal. Such selfish behaviors will potentially lead to a deviation from the central optimal. More specifically, given an undirected graph \(G\) with non-negative edge costs and \(N\) players, each player is interested in connecting a set of terminals (nodes in \(G\)) via buying a subgraph of \(G\). Players offer each edge in \(G\) certain amount of payment, and they would like make their total payments as little as possible. For example, as shown in Fig \ref{fig:deviation}, both agents $t_1$ and $t_2$ would like to connect to the source $s$. The optimal solution clearly involves buying all edges except $t_1s$. However, if agents $t_1$ needs to pay more than $1+\epsilon$ for the optimal solution, they will just choose to pay for $t_1s$ and the total cost of the whole network will therefore be increased.
 
 \begin{figure}[H]
 	\begin{center}
@@ -91,14 +91,8 @@ In real life, many networks are often developed and maintained by many selfish a
 
 \subsection{Formal Definition of Connection Game}
 Here we formally define the connection game for \(N\) players as following:
-\begin{itemize}
-	\item An undirected graph \(G = (V,E)\).
-	\item Non-negative edge cost \(c_e \geq 0\) for every edge $c_e \in E$.
-	\item A subset of \(V\) for each player that they must connect to. 
-	\item A payment function \(p_i\) indicates that player's payment strategy. \(p_i(e)\) is the contribution that player \(i\) would like to offer for edge \(e\).
-\end{itemize}
 
-If the sum of payment on certain edge \(e\) is larger than the cost on that edge \(c_e\), this edge is considered as bought and can be used by all players no matter they contribute to it or not. The goal of all players is to connect all of their terminals. If in the end, a player's terminates are not fully connected, they will face an infinite penalty.  
+Given an undirected graph \(G = (V,E)\), cost \(c_e \geq 0\) for every edge $c_e \in E$. Each player has a subset of \(V\) that they must connect to. Payment function \(p_i\) indicates player $i$'s payment strategy, i.e. \(p_i(e)\) is the contribution that player \(i\) would like to offer for edge \(e\). If the sum of payment on certain edge \(e\) is larger than the cost on that edge \(c_e\), this edge is considered as bought and can be used by all players no matter they contribute to it or not. The goal of all players is to connect all of their terminals. If in the end, a player's terminates are not fully connected, they will face an infinite penalty.  
 
 \section{Nash Equilibrium in Connection Game}
 \subsection{Definition of Nash Equilibrium}
@@ -310,18 +304,14 @@ As shown in Fig \ref{fig:alterpath}, suppose there are two nodes \(v\) and \(w\)
 		\label{fig:alterpath}
 	\end{figure}
 
-First, we claim that the modified costs for edges on $P_4$ are always 0 since none of them are on player $i$'s path from $t_i$ to $s$ in $T^*$.
-		\begin{claim}
-			$ c^{'}(P_4) = p_i(P_4) = 0$ for $i$.
-		\end{claim}
-Secondly, we can observe that $P_1$ is always restrictly below $y$. If this is not the case, $P_3$ is just a subpath of $P_1$. Since $c^{'}(P_3) \leq c^{'}(P_1) \text{ and } c^{'}(P_4) = 0$, we get $ c^{'}(P_3\bigcup P_4) \leq c^{'}(P_1\bigcup P_2)$ as desired.  	
+First, we can observe that $P_1$ is always restrictly below $y$. If this is not the case, $P_3$ is just a subpath of $P_1$. Secondly, we can observe that the modified costs for edges on $P_4$ are always 0 since none of them are on player $i$'s path from $t_i$ to $s$ in $T^*$. Since $c^{'}(P_3) \leq c^{'}(P_1) \text{ and } c^{'}(P_4) = 0$, we get $ c^{'}(P_3\bigcup P_4) \leq c^{'}(P_1\bigcup P_2)$ as desired.  	
 		\begin{claim}
 		$P_1$ is restrictly below $y$,i.e. $P_1$ is a subpath of $P_3$. 
 		\end{claim}
 
 In the case that $P_1$ is restrictly below $y$,
-when deciding the payment of each edge in $P_3$, $p_i(e) \leq c(A_i)$. At any time, player $i$'s payments are upper bounded by the modified cost of his alternate path, which is in turn upper bounded by the modified cost of any path from $t_i$ to $s$. 
-			 \[ c^{'}(P_3\bigcup P_4) = c^{'}(P_3) \leq c^{'}(P_1\bigcup P_2)\]
+when deciding the payment of each edge in $P_3$, $p_i(e) \leq c(A_i)$, at any time, player $i$'s payments are upper bounded by the modified cost of their alternate path, which is in turn upper bounded by the modified cost of any path from $t_i$ to $s$. Particularly, player $i$'s payments on $P_3$ is are upper bounded by the modified cost of $P_1\bigcup P_2$ . The cost of $P-4$ is again 0 as we have not asked palyer $i$ to pay for any egdes above $y$ at this moment. Therfore, 
+ 			 \[ c^{'}(P_3\bigcup P_4) = c^{'}(P_3) \leq c^{'}(P_1\bigcup P_2)\]
 	
 We finished proving the following theorem:
 		\begin{theorem}
@@ -349,10 +339,8 @@ We finished proving the following theorem:
 	\[p_i^{'}(T) - p_i(T) \leq \epsilon p_i(T)\]
 	\[p_i^{'}(T) - p_i(T) =  \gamma\frac{p_i(T)}{P(T)}m =  \gamma\frac{p_i(T)}{c(T)-m\gamma}m \leq \epsilon p_i(T)\]
 	\[ \frac{m\gamma}{c(T)-m\gamma} \leq \epsilon \Rightarrow \gamma \leq \frac{\epsilon c(T)}{(1+\epsilon)m}\]
-	Since $T$ is not optimal, it is possible that agents will not be willing to pay for $T$ even we reduce the cost on every edge in $T$. What we do instead is to form a cheaper tree. Therefore, we need to define $\gamma$ in a way that even after reconstruction, the final payment will still be a $1+\epsilon$ approximation. 
+	Since $T$ is not optimal, it is possible that agents will not be willing to pay for $T$ even we reduce the cost on every edge in $T$. Whenever this happens, we call the following procedure to form a cheaper tree $T^{'}$. 
 	
-	Suppose the reconstructed tree $T^{'}$ has $m^{'}$ edges, we want $\gamma$ is also less or equal to $\frac{\epsilon c(T^{'})}{(1+\epsilon)m^{'}}$. As $T \text{ and } T^{'}$ are both trees, $m \text{ and } m^{'}$ will both be smaller that the number of vertices in the original graph.  Because $c(T^{'}) \geq c(T^*) = \frac{c(T)}{\alpha}$, we can define $\gamma$ as:
-	\[\gamma = \frac{\epsilon c(T)}{(1+\epsilon)n\alpha},\quad n = |V|\]
 	
 	
 		\begin{algorithm}[H]
@@ -363,19 +351,15 @@ We finished proving the following theorem:
 				\IF{\(e\) is not fully paid}
 				\STATE  Adjust \( T\) by replacing \(T_e\) with  \(\bigcup_{i\in T_e} A_i\) to get \(T^{'}\)
 				\STATE BREAK
-				% Run Algorithm 1 to pay for $T^{'}$ under modified cost
 				\ENDIF
 				\ENDWHILE
-				\STATE Modify($T^{'}$)
-			   
 			\end{algorithmic}
 			\caption{Modify $T$ }
-			\end{algorithm}
-		
-		% 	$P(T^{'}) \gets \sum_i p_i(T^{'})$\\
-		% 	$p_i^{'}(e) \gets p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\quad \text{ for all players and every } e \in T^{'}$
+		\end{algorithm}
 	
-		% 
+	Therefore, we need to define $\gamma$ in a way that even after reconstruction, the final payment will still be a $1+\epsilon$ approximation.  Suppose the reconstructed tree $T^{'}$ has $m^{'}$ edges, we want $\gamma$ is also less or equal to $\frac{\epsilon c(T^{'})}{(1+\epsilon)m^{'}}$. As $T \text{ and } T^{'}$ are both trees, $m \text{ and } m^{'}$ will both be smaller that the number of vertices in the original graph.  Because $c(T^{'}) \geq c(T^*) = \frac{c(T)}{\alpha}$, we can define $\gamma$ as:
+	\[\gamma = \frac{\epsilon c(T)}{(1+\epsilon)n\alpha},\quad n = |V|\]
+	
 		At the end of the algorithm, we increase player $i$'s payment on edge $e$ proportionally to their contribution to $T^{'}$, \[p_i^{'}(e) = p_i(e) + \gamma\frac{p_i(T^{'})}{P(T^{'})}\]
 	
 		\begin{claim}
@@ -467,25 +451,26 @@ As shown in the figure, each player $i$ owns terminals $s_i$ and $t_i$. The opti
 	\begin{lemma}
 		For any equilibrium that is better than $3/2$, player 1 and player $N$ will not be willing to pay for more 3 for this graph.
 	\end{lemma}
-	As shown in Fig \ref{fig:3/2equi}, suppose player 1 pays $x$ t the path from $s_1 \rightarrow t_1$ and $y$ to the path $t_1 \rightarrow t_N$. Two possible incentive choices for player 1 are either to pay for only the path from $s_1 \rightarrow t_1$ or the path from $s_1 \rightarrow t_1$ and an additional edge $t_Ns_1$. If the equilibrium is a $3/2$ equilibrium, then the following inequalities must hold true \[\frac{x+y}{x} \leq \frac{3}{2}\quad \text{ and }\quad\frac{x+y}{y+1} \leq \frac{3}{2}\]
+	As shown in Fig \ref{fig:3/2equi}.a, suppose player 1 pays $x$ t the path from $s_1 \rightarrow t_1$ and $y$ to the path $t_1 \rightarrow t_N$. Two possible incentive choices for player 1 are either to pay for only the path from $s_1 \rightarrow t_1$ or the path from $s_1 \rightarrow t_1$ and an additional edge $t_Ns_1$. If the equilibrium is a $3/2$ equilibrium, then the following inequalities must hold true \[\frac{x+y}{x} \leq \frac{3}{2}\quad \text{ and }\quad\frac{x+y}{y+1} \leq \frac{3}{2}\]
 	Therefore, we get $x+y\leq 3$.
 	
 	\begin{figure}
 		\begin{center}
 			\begin{subfigure}[b]{0.3\textwidth}
 				\includegraphics{pictures/lessthan3.pdf}
+			\caption{}
 			\end{subfigure}
 			\hspace{50pt}
 			\begin{subfigure}[b]{0.3\textwidth}
 				\includegraphics{pictures/lessthan3_2.pdf}
+				\caption{}
 			\end{subfigure}
 		\end{center}
 		\caption{Illustration for proving the equilibrium must be worse than 3/2.}
 		\label{fig:3/2equi}
 	\end{figure}    
 	
-	Since player 1 and $N$ both would not pay more than 3 for the possible solution. Then the rest $N-2$ players must pay at lease $2N-7$. There must exist at lease one player $i$ pays at lease $(2N-7)/(N-2)$. Suppose player $i$ pays $x$ to $s_i \rightarrow t_i$, $y$ to $s_{i-1} \rightarrow s_i$, $z$ to $t_i \rightarrow t_{i+1}$. Possible incentive choices for player $i$ include the choice to pay for only the path from $s_i \rightarrow t_i$, or the path from $s_{i-1} \rightarrow s_i$ and an additional edge $t_{i+1}s_i$,or the path from $t_i \rightarrow t_{i+1}$ and an additional edge $t_is_{i-1}$. Player $i$ has \[max\{\frac{x+y+z}{x},\frac{x+y+z}{1+y},\frac{x+y+z}{1+z}\}\] incentive to deviate. 
-	$max\{\frac{x+y+z}{x},\frac{x+y+z}{1+y},\frac{x+y+z}{1+z}\}$ is minimized when $x = 1+y =1+z$. 
+	Since player 1 and $N$ both would not pay more than 3 for the possible solution. Then the rest $N-2$ players must pay at lease $2N-7$. There must exist at lease one player $i$ pays at lease $(2N-7)/(N-2)$. As shown in Fig \ref{fig:3/2equi}.b, suppose player $i$ pays $x$ to $s_i \rightarrow t_i$, $y$ to $s_{i-1} \rightarrow s_i$, $z$ to $t_i \rightarrow t_{i+1}$. Possible incentive choices for player $i$ include the choice to pay for only the path from $s_i \rightarrow t_i$, or the path from $s_{i-1} \rightarrow s_i$ and an additional edge $t_{i+1}s_i$,or the path from $t_i \rightarrow t_{i+1}$ and an additional edge $t_is_{i-1}$. Player $i$ has \[max\{\frac{x+y+z}{x},\frac{x+y+z}{1+y},\frac{x+y+z}{1+z}\}\] incentive to deviate, which is minimized when $x = 1+y =1+z$. 
 		\[x+y+z \geq \frac{2N-7}{N-2}\]
 		\[x \geq \frac{4N-11}{3N-6}\]
 		\[\frac{x+y+z}{x} \geq \frac{3x-2}{x} = 3-\frac{2}{x} \geq \frac{6N-21}{4N-11} \]
@@ -511,15 +496,25 @@ As shown in the figure, each player $i$ owns terminals $s_i$ and $t_i$. The opti
 			  \end{tabular}
 	\end{center}
 
-	The closest approximation ratio had been obtained was 1.55 by k-restricted Steiner Tree. A better approximation ratio, 1.39, was archived 2 years after this paper by modeling Steiner tree into linear programming relaxation and iterative randomized rounding.
+	The closest approximation ratio had been obtained was 1.55 by  Robins and Zelikovsky. A better approximation ratio, 1.39, was achived afterwards by modeling Steiner tree into linear programming relaxation and iterative randomized rounding.
 	
 
 \begin{thebibliography}{10}
-	\setlength{\itemsep}{0pt plus .3pt}
-	\setlength{\parsep}{0pt plus .3pt}
-	\setlength{\parskip}{0pt plus .3pt}
+\setlength{\itemsep}{0pt plus .3pt}
+\setlength{\parsep}{0pt plus .3pt}
+\setlength{\parskip}{0pt plus .3pt}
 \bibitem{texbook}
 Vazirani Vijay V. {\em Approximation Algorithms.\/} Chapters 3.1 and 22, Springer, 2003.
+\bibitem{citekey}
+Anshelevich, E. et al. (2003) ‘Near-optimal network design with Selfish Agents’, Proceedings of the thirty-fifth ACM symposium on Theory of computing - STOC ’03 [Preprint]. doi:10.1145/780615.780617.
+\bibitem{citekey}
+Roughgarden, T. ‘CS364A: Algorithmic Game Theory  Lecture 15: Best-Case and Strong Nash Equilibria’.
+\bibitem{citekey}
+Chlebík, M. and Chlebíková, J. (2008) ‘The steiner tree problem on graphs: Inapproximability results’, Theoretical Computer Science, 406(3), pp. 207–214. doi:10.1016/j.tcs.2008.06.046. 
+\bibitem{citekey}
+Robins, G. and Zelikovsky, A. (2005) ‘Tighter bounds for graph Steiner tree approximation’, SIAM Journal on Discrete Mathematics, 19(1), pp. 122–134. doi:10.1137/s0895480101393155. 
+\bibitem{citekey}
+Byrka, J. et al. (2013) ‘Steiner tree approximation via iterative randomized rounding’, Journal of the ACM, 60(1), pp. 1–33. doi:10.1145/2432622.2432628.  
 \end{thebibliography}
 
 \end{document}
